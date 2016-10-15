@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeanManager
+namespace MealManager
 {
     class Week
     {
@@ -23,7 +23,7 @@ namespace MeanManager
 
         }
 
-        public void addMeal(ReadyMeal meal, DayOfWeek day)
+        public void AddMeal(ReadyMeal meal, DayOfWeek day)
         {
             dailyMeal[day] = meal;
         }

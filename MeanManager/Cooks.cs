@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace MeanManager
+namespace MealManager
 {
     class Cooks
     {
@@ -32,9 +33,11 @@ namespace MeanManager
             }
         }
 
-        public String toString()
+        public String GetName()
         {
             return name;
         }
+
+
     }
 }

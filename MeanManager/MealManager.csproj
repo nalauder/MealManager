@@ -7,8 +7,8 @@
     <ProjectGuid>{2F2251E7-F35C-49BA-9649-C41AA0D28F59}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MeanManager</RootNamespace>
-    <AssemblyName>MeanManager</AssemblyName>
+    <RootNamespace>MealManager</RootNamespace>
+    <AssemblyName>MealManager</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -70,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\DataSources\Cooks.datasource" />
     <None Include="Properties\DataSources\Form1.datasource" />

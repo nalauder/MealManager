@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MeanManager
+namespace MealManager
 {
     class ReadyMeal
     {
@@ -16,7 +16,7 @@ namespace MeanManager
             this.meal = meal;
         }
 
-        public Cooks getCook()
+        public Cooks GetCook()
         {
             return cook;
         }

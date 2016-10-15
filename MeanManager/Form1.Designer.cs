@@ -1,4 +1,4 @@
-﻿namespace MeanManager
+﻿namespace MealManager
 {
     partial class Form1
     {
@@ -44,6 +44,7 @@
             this.AllMeals = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cooksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mealsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.Remove = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AddCooks.SuspendLayout();
             this.Viewer.SuspendLayout();
@@ -61,7 +62,7 @@
             this.tabControl1.Location = new System.Drawing.Point(2, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(531, 349);
+            this.tabControl1.Size = new System.Drawing.Size(531, 346);
             this.tabControl1.TabIndex = 0;
             // 
             // SelectMeal
@@ -69,7 +70,7 @@
             this.SelectMeal.Location = new System.Drawing.Point(4, 22);
             this.SelectMeal.Name = "SelectMeal";
             this.SelectMeal.Padding = new System.Windows.Forms.Padding(3);
-            this.SelectMeal.Size = new System.Drawing.Size(523, 323);
+            this.SelectMeal.Size = new System.Drawing.Size(523, 279);
             this.SelectMeal.TabIndex = 0;
             this.SelectMeal.Text = "Select Meal";
             this.SelectMeal.UseVisualStyleBackColor = true;
@@ -79,7 +80,7 @@
             this.AddMeal.Location = new System.Drawing.Point(4, 22);
             this.AddMeal.Name = "AddMeal";
             this.AddMeal.Padding = new System.Windows.Forms.Padding(3);
-            this.AddMeal.Size = new System.Drawing.Size(523, 323);
+            this.AddMeal.Size = new System.Drawing.Size(523, 279);
             this.AddMeal.TabIndex = 1;
             this.AddMeal.Text = "Add Meals";
             this.AddMeal.UseVisualStyleBackColor = true;
@@ -93,7 +94,7 @@
             this.AddCooks.Location = new System.Drawing.Point(4, 22);
             this.AddCooks.Name = "AddCooks";
             this.AddCooks.Padding = new System.Windows.Forms.Padding(3);
-            this.AddCooks.Size = new System.Drawing.Size(523, 323);
+            this.AddCooks.Size = new System.Drawing.Size(523, 320);
             this.AddCooks.TabIndex = 2;
             this.AddCooks.Text = "Add Cooks";
             this.AddCooks.UseVisualStyleBackColor = true;
@@ -106,7 +107,7 @@
             this.AddCook.TabIndex = 3;
             this.AddCook.Text = "Add Cook";
             this.AddCook.UseVisualStyleBackColor = true;
-            this.AddCook.Click += new System.EventHandler(this.button1_Click_1);
+            this.AddCook.Click += new System.EventHandler(this.AddCook_Click);
             // 
             // AvailableNights
             // 
@@ -120,7 +121,7 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.AvailableNights.Location = new System.Drawing.Point(277, 25);
+            this.AvailableNights.Location = new System.Drawing.Point(145, 25);
             this.AvailableNights.Name = "AvailableNights";
             this.AvailableNights.Size = new System.Drawing.Size(120, 109);
             this.AvailableNights.TabIndex = 2;
@@ -133,7 +134,7 @@
             "Eggs",
             "Dairy",
             "Nuts"});
-            this.CookAllergies.Location = new System.Drawing.Point(139, 25);
+            this.CookAllergies.Location = new System.Drawing.Point(19, 51);
             this.CookAllergies.Name = "CookAllergies";
             this.CookAllergies.Size = new System.Drawing.Size(120, 49);
             this.CookAllergies.TabIndex = 1;
@@ -142,16 +143,17 @@
             // 
             this.CookName.Location = new System.Drawing.Point(19, 25);
             this.CookName.Name = "CookName";
-            this.CookName.Size = new System.Drawing.Size(100, 20);
+            this.CookName.Size = new System.Drawing.Size(120, 20);
             this.CookName.TabIndex = 0;
             // 
             // Viewer
             // 
+            this.Viewer.Controls.Add(this.Remove);
             this.Viewer.Controls.Add(this.ViewerTable);
             this.Viewer.Location = new System.Drawing.Point(4, 22);
             this.Viewer.Name = "Viewer";
             this.Viewer.Padding = new System.Windows.Forms.Padding(3);
-            this.Viewer.Size = new System.Drawing.Size(523, 323);
+            this.Viewer.Size = new System.Drawing.Size(523, 320);
             this.Viewer.TabIndex = 3;
             this.Viewer.Text = "View Data";
             this.Viewer.UseVisualStyleBackColor = true;
@@ -165,7 +167,7 @@
             this.AllMeals});
             this.ViewerTable.Location = new System.Drawing.Point(6, 6);
             this.ViewerTable.Name = "ViewerTable";
-            this.ViewerTable.Size = new System.Drawing.Size(511, 311);
+            this.ViewerTable.Size = new System.Drawing.Size(511, 278);
             this.ViewerTable.TabIndex = 0;
             // 
             // CooksCol
@@ -191,11 +193,21 @@
             // 
             // cooksBindingSource
             // 
-            this.cooksBindingSource.DataSource = typeof(MeanManager.Cooks);
+            this.cooksBindingSource.DataSource = typeof(MealManager.Cooks);
             // 
             // mealsBindingSource
             // 
-            this.mealsBindingSource.DataSource = typeof(MeanManager.Meals);
+            this.mealsBindingSource.DataSource = typeof(MealManager.Meals);
+            // 
+            // Remove
+            // 
+            this.Remove.Location = new System.Drawing.Point(6, 290);
+            this.Remove.Name = "Remove";
+            this.Remove.Size = new System.Drawing.Size(75, 23);
+            this.Remove.TabIndex = 1;
+            this.Remove.Text = "Remove";
+            this.Remove.UseVisualStyleBackColor = true;
+            this.Remove.Click += new System.EventHandler(this.Remove_Click);
             // 
             // Form1
             // 
@@ -232,6 +244,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CooksCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn WeeksMeals;
         private System.Windows.Forms.DataGridViewTextBoxColumn AllMeals;
+        private System.Windows.Forms.Button Remove;
     }
 }
 

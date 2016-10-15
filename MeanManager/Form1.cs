@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MeanManager
+namespace MealManager
 {
     public partial class Form1 : Form
     {
@@ -17,27 +17,52 @@ namespace MeanManager
         public Form1()
         {
             InitializeComponent();
-            main = new MeanManager.Main();
+            main = new MealManager.Main();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void AddCook_Click(object sender, EventArgs e)
         {
-            ArrayList days = new ArrayList();
             String name;
+            name = CookName.Text;
+            if (main.ContainsCook(name))
+            {
+                return;
+            }
+            ArrayList days = new ArrayList();
+            
             ArrayList allergies = new ArrayList();
             for(int i = 0; i < AvailableNights.Items.Count-1; i++)
             {
                 if(AvailableNights.GetItemChecked(i))
                     days.Add((DayOfWeek)Enum.Parse(typeof(DayOfWeek), AvailableNights.GetItemText(i)));
             }
-            name = CookName.Text;
+            
             for (int i = 0; i < CookAllergies.Items.Count - 1; i++)
             {
                 if (CookAllergies.GetItemChecked(i))
                     allergies.Add(CookAllergies.GetItemText(i));
             }
-            main.addCook(new Cooks(name, allergies, days));
-            ViewerTable.Rows.Insert(main.getCook().Count-1, name);
+            main.AddCook(new Cooks(name, allergies, days));
+            ViewerTable.Rows.Add();
+            ViewerTable.Rows[main.GetNoCooks()-1].Cells["CooksCol"].Value = name;
+        }
+
+        private void Remove_Click(object sender, EventArgs e)
+        {
+            int rowindex = ViewerTable.CurrentCell.RowIndex;
+            int columnindex = ViewerTable.CurrentCell.ColumnIndex;
+            String selected = ViewerTable.Rows[rowindex].Cells[columnindex].Value.ToString();
+            for(int i = rowindex; i < main.GetNoCooks()-1; i++)
+                ViewerTable.Rows[i].Cells[columnindex].Value = ViewerTable.Rows[i + 1].Cells[columnindex].Value;
+            ViewerTable.Rows[Math.Max(main.GetNoCooks() - 1, 0)].Cells[columnindex].Value = "";
+            foreach (Cooks cook in main.GetCook())
+            {
+                if (cook.GetName().Equals(selected))
+                {
+                    main.removeCook(cook);
+                    return;
+                }
+            }
         }
 
     }
