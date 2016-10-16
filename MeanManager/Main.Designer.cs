@@ -49,10 +49,13 @@
             this.CookAllergies = new System.Windows.Forms.CheckedListBox();
             this.CookName = new System.Windows.Forms.TextBox();
             this.ViewerTab = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
             this.MealsListBox = new System.Windows.Forms.ListBox();
             this.WeeksMealsListBox = new System.Windows.Forms.ListBox();
             this.CooksListBox = new System.Windows.Forms.ListBox();
             this.RemoveButton = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.AddMealTab.SuspendLayout();
             this.AddCooksTab.SuspendLayout();
@@ -293,6 +296,9 @@
             // 
             // ViewerTab
             // 
+            this.ViewerTab.Controls.Add(this.label8);
+            this.ViewerTab.Controls.Add(this.label7);
+            this.ViewerTab.Controls.Add(this.label1);
             this.ViewerTab.Controls.Add(this.MealsListBox);
             this.ViewerTab.Controls.Add(this.WeeksMealsListBox);
             this.ViewerTab.Controls.Add(this.CooksListBox);
@@ -305,12 +311,22 @@
             this.ViewerTab.Text = "View Data";
             this.ViewerTab.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(37, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Cooks";
+            // 
             // MealsListBox
             // 
+            this.MealsListBox.DisplayMember = "Name";
             this.MealsListBox.FormattingEnabled = true;
-            this.MealsListBox.Location = new System.Drawing.Point(132, 6);
+            this.MealsListBox.Location = new System.Drawing.Point(125, 24);
             this.MealsListBox.Name = "MealsListBox";
-            this.MealsListBox.Size = new System.Drawing.Size(120, 95);
+            this.MealsListBox.Size = new System.Drawing.Size(120, 238);
             this.MealsListBox.TabIndex = 4;
             this.MealsListBox.ValueMember = "Name";
             this.MealsListBox.Click += new System.EventHandler(this.MealsListBox_Click);
@@ -319,9 +335,9 @@
             // 
             this.WeeksMealsListBox.DisplayMember = "Name";
             this.WeeksMealsListBox.FormattingEnabled = true;
-            this.WeeksMealsListBox.Location = new System.Drawing.Point(258, 6);
+            this.WeeksMealsListBox.Location = new System.Drawing.Point(244, 24);
             this.WeeksMealsListBox.Name = "WeeksMealsListBox";
-            this.WeeksMealsListBox.Size = new System.Drawing.Size(120, 95);
+            this.WeeksMealsListBox.Size = new System.Drawing.Size(120, 238);
             this.WeeksMealsListBox.TabIndex = 3;
             this.WeeksMealsListBox.ValueMember = "Name";
             this.WeeksMealsListBox.Click += new System.EventHandler(this.WeeksMealsListBox_Click);
@@ -330,9 +346,9 @@
             // 
             this.CooksListBox.DisplayMember = "Name";
             this.CooksListBox.FormattingEnabled = true;
-            this.CooksListBox.Location = new System.Drawing.Point(6, 6);
+            this.CooksListBox.Location = new System.Drawing.Point(6, 24);
             this.CooksListBox.Name = "CooksListBox";
-            this.CooksListBox.Size = new System.Drawing.Size(120, 95);
+            this.CooksListBox.Size = new System.Drawing.Size(120, 238);
             this.CooksListBox.TabIndex = 2;
             this.CooksListBox.ValueMember = "Name";
             this.CooksListBox.Click += new System.EventHandler(this.CooksListBox_Click);
@@ -346,6 +362,24 @@
             this.RemoveButton.Text = "Remove";
             this.RemoveButton.UseVisualStyleBackColor = true;
             this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(122, 8);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Meals";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(241, 8);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(72, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Weeks Meals";
             // 
             // Main
             // 
@@ -361,6 +395,7 @@
             this.AddCooksTab.ResumeLayout(false);
             this.AddCooksTab.PerformLayout();
             this.ViewerTab.ResumeLayout(false);
+            this.ViewerTab.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -391,6 +426,9 @@
         private System.Windows.Forms.ListBox WeeksMealsListBox;
         private System.Windows.Forms.ListBox CooksListBox;
         private System.Windows.Forms.Button AddMealButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
     }
 }
 
