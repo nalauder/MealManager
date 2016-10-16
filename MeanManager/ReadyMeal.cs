@@ -20,5 +20,10 @@ namespace MealManager
         {
             return cook;
         }
+
+        public String GetMealName()
+        {
+            return meal.GetName();
+        }
     }
 }

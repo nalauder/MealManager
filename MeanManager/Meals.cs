@@ -10,14 +10,21 @@ namespace MealManager
     class Meals
     {
         private ArrayList ingredients;
-        private String name;
-        private Boolean hasNuts;
-        private Boolean hasDairy;
-        private Boolean hasEggs;
-        public Meals(String name, ArrayList ingredients)
+        private string name;
+        private bool hasNuts;
+        private bool hasDairy;
+        private bool hasEggs;
+        public Meals(string name, ArrayList ingredients, bool nuts, bool dairy, bool eggs)
         {
             this.ingredients = ingredients;
             this.name = name;
+            hasNuts = nuts;
+            hasDairy = dairy;
+            hasEggs = eggs;
+        }
+        public string GetName()
+        {
+            return name;
         }
     }
 }

@@ -22,8 +22,7 @@ namespace MealManager
 
         private void AddCook_Click(object sender, EventArgs e)
         {
-            String name;
-            name = CookName.Text;
+            String name = CookName.Text;
             if (main.ContainsCook(name))
             {
                 return;
@@ -43,7 +42,8 @@ namespace MealManager
                     allergies.Add(CookAllergies.GetItemText(i));
             }
             main.AddCook(new Cooks(name, allergies, days));
-            ViewerTable.Rows.Add();
+            if (ViewerTable.Rows.Count <= main.GetNoCooks())
+                ViewerTable.Rows.Add();
             ViewerTable.Rows[main.GetNoCooks()-1].Cells["CooksCol"].Value = name;
         }
 
@@ -52,18 +52,90 @@ namespace MealManager
             int rowindex = ViewerTable.CurrentCell.RowIndex;
             int columnindex = ViewerTable.CurrentCell.ColumnIndex;
             String selected = ViewerTable.Rows[rowindex].Cells[columnindex].Value.ToString();
-            for(int i = rowindex; i < main.GetNoCooks()-1; i++)
+            for(int i = rowindex; i < ViewerTable.Rows.Count; i++)
                 ViewerTable.Rows[i].Cells[columnindex].Value = ViewerTable.Rows[i + 1].Cells[columnindex].Value;
-            ViewerTable.Rows[Math.Max(main.GetNoCooks() - 1, 0)].Cells[columnindex].Value = "";
-            foreach (Cooks cook in main.GetCook())
+            ViewerTable.Rows[Math.Max(ViewerTable.Rows.Count, 0)].Cells[columnindex].Value = "";
+
+            if (columnindex == 0)
             {
-                if (cook.GetName().Equals(selected))
+                foreach (Cooks cook in main.GetCook())
                 {
-                    main.removeCook(cook);
-                    return;
+                    if (cook.GetName().Equals(selected))
+                    {
+                        main.RemoveCook(cook);
+                        return;
+                    }
+                }
+            }
+            else if(columnindex == 1)
+            {
+                foreach (ReadyMeal meal in main.GetReadyMeals())
+                {
+                    if (meal.GetMealName().Equals(selected))
+                    {
+                        main.RemoveReadyMeal(meal);
+                        return;
+                    }
+                }
+            }
+            else if(columnindex == 2)
+            {
+                foreach (Meals meal in main.GetAllMeals())
+                {
+                    if (meal.GetName().Equals(selected))
+                    {
+                        main.RemoveMeal(meal);
+                        return;
+                    }
                 }
             }
         }
 
+        private void Add_Click(object sender, EventArgs e)
+        {
+            String name = newMealName.Text;
+            ArrayList ingredients = new ArrayList();
+            bool nuts = false;
+            bool dairy = false;
+            bool eggs = false;
+
+            for (int i = 0; i < NewMealVegtables.Items.Count - 1; i++)
+                if (NewMealVegtables.GetItemChecked(i))
+                    ingredients.Add(NewMealVegtables.GetItemText(i));
+
+            for (int i = 0; i < NewMealMeats.Items.Count - 1; i++)
+                if (NewMealMeats.GetItemChecked(i))
+                    ingredients.Add(NewMealMeats.GetItemText(i));
+
+            for (int i = 0; i < NewMealFillers.Items.Count - 1; i++)
+                if (NewMealFillers.GetItemChecked(i))
+                    ingredients.Add(NewMealFillers.GetItemText(i));
+
+            for (int i = 0; i < NewMealAllergies.Items.Count - 1; i++)
+            {
+                if (NewMealAllergies.GetItemChecked(i))
+                {
+                    if (NewMealAllergies.GetItemText(i).Equals("Dairy"))
+                        dairy = true;
+                    else if (NewMealAllergies.GetItemText(i).Equals("Eggs"))
+                        eggs = true;
+                    else if (NewMealAllergies.GetItemText(i).Equals("Nuts"))
+                        nuts = true;
+                }
+            }
+
+            String[] extras = NewMealExtras.Text.Split(',', ' ');
+            for (int i = 0; i < extras.Length - 1; i++)
+                ingredients.Add(extras[i]);
+            main.AddMeal(new Meals(name, ingredients, nuts, dairy, eggs));
+            if(ViewerTable.Rows.Count <= main.GetNoMeals())
+                ViewerTable.Rows.Add();
+            ViewerTable.Rows[main.GetNoMeals() - 1].Cells["AllMeals"].Value = name;
+        }
+
+        private void ViewerTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

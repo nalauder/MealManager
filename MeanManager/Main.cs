@@ -57,6 +57,11 @@ namespace MealManager
             return allCooks.Count;
         }
 
+        public int GetNoMeals()
+        {
+            return allMeals.Count;
+        }
+
         public bool ContainsCook(String name)
         {
             foreach(Cooks cook in allCooks)
@@ -67,9 +72,19 @@ namespace MealManager
             return false;
         }
 
-        public void removeCook(Cooks remove)
+        public void RemoveCook(Cooks remove)
         {
             allCooks.Remove(remove);
+        }
+
+        public void RemoveMeal(Meals remove)
+        {
+            allMeals.Remove(remove);
+        }
+
+        public void RemoveReadyMeal(ReadyMeal remove)
+        {
+            allReadyMeals.Remove(remove);
         }
     }
 }

@@ -32,20 +32,34 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.SelectMeal = new System.Windows.Forms.TabPage();
             this.AddMeal = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Add = new System.Windows.Forms.Button();
+            this.NewMealExtras = new System.Windows.Forms.RichTextBox();
+            this.NewMealFillers = new System.Windows.Forms.CheckedListBox();
+            this.NewMealAllergies = new System.Windows.Forms.CheckedListBox();
+            this.NewMealVegtables = new System.Windows.Forms.CheckedListBox();
+            this.newMealName = new System.Windows.Forms.TextBox();
+            this.NewMealMeats = new System.Windows.Forms.CheckedListBox();
             this.AddCooks = new System.Windows.Forms.TabPage();
             this.AddCook = new System.Windows.Forms.Button();
             this.AvailableNights = new System.Windows.Forms.CheckedListBox();
             this.CookAllergies = new System.Windows.Forms.CheckedListBox();
             this.CookName = new System.Windows.Forms.TextBox();
             this.Viewer = new System.Windows.Forms.TabPage();
+            this.Remove = new System.Windows.Forms.Button();
             this.ViewerTable = new System.Windows.Forms.DataGridView();
             this.CooksCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WeeksMeals = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AllMeals = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.cooksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.mealsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.Remove = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.AddMeal.SuspendLayout();
             this.AddCooks.SuspendLayout();
             this.Viewer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ViewerTable)).BeginInit();
@@ -70,20 +84,124 @@
             this.SelectMeal.Location = new System.Drawing.Point(4, 22);
             this.SelectMeal.Name = "SelectMeal";
             this.SelectMeal.Padding = new System.Windows.Forms.Padding(3);
-            this.SelectMeal.Size = new System.Drawing.Size(523, 279);
+            this.SelectMeal.Size = new System.Drawing.Size(523, 320);
             this.SelectMeal.TabIndex = 0;
             this.SelectMeal.Text = "Select Meal";
             this.SelectMeal.UseVisualStyleBackColor = true;
             // 
             // AddMeal
             // 
+            this.AddMeal.Controls.Add(this.label6);
+            this.AddMeal.Controls.Add(this.label5);
+            this.AddMeal.Controls.Add(this.label4);
+            this.AddMeal.Controls.Add(this.label3);
+            this.AddMeal.Controls.Add(this.label2);
+            this.AddMeal.Controls.Add(this.label1);
+            this.AddMeal.Controls.Add(this.Add);
+            this.AddMeal.Controls.Add(this.NewMealExtras);
+            this.AddMeal.Controls.Add(this.NewMealFillers);
+            this.AddMeal.Controls.Add(this.NewMealAllergies);
+            this.AddMeal.Controls.Add(this.NewMealVegtables);
+            this.AddMeal.Controls.Add(this.newMealName);
+            this.AddMeal.Controls.Add(this.NewMealMeats);
             this.AddMeal.Location = new System.Drawing.Point(4, 22);
             this.AddMeal.Name = "AddMeal";
             this.AddMeal.Padding = new System.Windows.Forms.Padding(3);
-            this.AddMeal.Size = new System.Drawing.Size(523, 279);
+            this.AddMeal.Size = new System.Drawing.Size(523, 320);
             this.AddMeal.TabIndex = 1;
             this.AddMeal.Text = "Add Meals";
             this.AddMeal.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Meal Name";
+            // 
+            // Add
+            // 
+            this.Add.Location = new System.Drawing.Point(6, 293);
+            this.Add.Name = "Add";
+            this.Add.Size = new System.Drawing.Size(75, 23);
+            this.Add.TabIndex = 6;
+            this.Add.Text = "Add";
+            this.Add.UseVisualStyleBackColor = true;
+            this.Add.Click += new System.EventHandler(this.Add_Click);
+            // 
+            // NewMealExtras
+            // 
+            this.NewMealExtras.Location = new System.Drawing.Point(6, 191);
+            this.NewMealExtras.Name = "NewMealExtras";
+            this.NewMealExtras.Size = new System.Drawing.Size(338, 96);
+            this.NewMealExtras.TabIndex = 5;
+            this.NewMealExtras.Text = "";
+            // 
+            // NewMealFillers
+            // 
+            this.NewMealFillers.CheckOnClick = true;
+            this.NewMealFillers.FormattingEnabled = true;
+            this.NewMealFillers.Items.AddRange(new object[] {
+            "Pasta",
+            "Spegetti",
+            "Rice"});
+            this.NewMealFillers.Location = new System.Drawing.Point(178, 64);
+            this.NewMealFillers.Name = "NewMealFillers";
+            this.NewMealFillers.Size = new System.Drawing.Size(80, 94);
+            this.NewMealFillers.TabIndex = 4;
+            // 
+            // NewMealAllergies
+            // 
+            this.NewMealAllergies.CheckOnClick = true;
+            this.NewMealAllergies.FormattingEnabled = true;
+            this.NewMealAllergies.Items.AddRange(new object[] {
+            "Dairy",
+            "Eggs",
+            "Nuts"});
+            this.NewMealAllergies.Location = new System.Drawing.Point(264, 64);
+            this.NewMealAllergies.Name = "NewMealAllergies";
+            this.NewMealAllergies.Size = new System.Drawing.Size(80, 94);
+            this.NewMealAllergies.TabIndex = 3;
+            // 
+            // NewMealVegtables
+            // 
+            this.NewMealVegtables.CheckOnClick = true;
+            this.NewMealVegtables.FormattingEnabled = true;
+            this.NewMealVegtables.Items.AddRange(new object[] {
+            "Brocoilli",
+            "Potato",
+            "Carrots",
+            "Letuce",
+            "Cabage",
+            "Peas"});
+            this.NewMealVegtables.Location = new System.Drawing.Point(6, 64);
+            this.NewMealVegtables.Name = "NewMealVegtables";
+            this.NewMealVegtables.Size = new System.Drawing.Size(80, 94);
+            this.NewMealVegtables.TabIndex = 2;
+            // 
+            // newMealName
+            // 
+            this.newMealName.Location = new System.Drawing.Point(6, 19);
+            this.newMealName.Name = "newMealName";
+            this.newMealName.Size = new System.Drawing.Size(119, 20);
+            this.newMealName.TabIndex = 1;
+            // 
+            // NewMealMeats
+            // 
+            this.NewMealMeats.CheckOnClick = true;
+            this.NewMealMeats.FormattingEnabled = true;
+            this.NewMealMeats.Items.AddRange(new object[] {
+            "Beef",
+            "Steak",
+            "Chicken",
+            "Fish",
+            "Pork"});
+            this.NewMealMeats.Location = new System.Drawing.Point(92, 64);
+            this.NewMealMeats.Name = "NewMealMeats";
+            this.NewMealMeats.Size = new System.Drawing.Size(80, 94);
+            this.NewMealMeats.TabIndex = 0;
             // 
             // AddCooks
             // 
@@ -158,6 +276,16 @@
             this.Viewer.Text = "View Data";
             this.Viewer.UseVisualStyleBackColor = true;
             // 
+            // Remove
+            // 
+            this.Remove.Location = new System.Drawing.Point(6, 290);
+            this.Remove.Name = "Remove";
+            this.Remove.Size = new System.Drawing.Size(75, 23);
+            this.Remove.TabIndex = 1;
+            this.Remove.Text = "Remove";
+            this.Remove.UseVisualStyleBackColor = true;
+            this.Remove.Click += new System.EventHandler(this.Remove_Click);
+            // 
             // ViewerTable
             // 
             this.ViewerTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -169,6 +297,7 @@
             this.ViewerTable.Name = "ViewerTable";
             this.ViewerTable.Size = new System.Drawing.Size(511, 278);
             this.ViewerTable.TabIndex = 0;
+            this.ViewerTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ViewerTable_CellContentClick);
             // 
             // CooksCol
             // 
@@ -191,6 +320,51 @@
             this.AllMeals.ReadOnly = true;
             this.AllMeals.Width = 150;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 48);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(60, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Vegetables";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(89, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(36, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Meats";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(175, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(33, 13);
+            this.label4.TabIndex = 10;
+            this.label4.Text = "Fillers";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(261, 48);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Allergies";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 175);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(195, 13);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "Extra Ingredients (Seperated by comma)";
+            // 
             // cooksBindingSource
             // 
             this.cooksBindingSource.DataSource = typeof(MealManager.Cooks);
@@ -198,16 +372,6 @@
             // mealsBindingSource
             // 
             this.mealsBindingSource.DataSource = typeof(MealManager.Meals);
-            // 
-            // Remove
-            // 
-            this.Remove.Location = new System.Drawing.Point(6, 290);
-            this.Remove.Name = "Remove";
-            this.Remove.Size = new System.Drawing.Size(75, 23);
-            this.Remove.TabIndex = 1;
-            this.Remove.Text = "Remove";
-            this.Remove.UseVisualStyleBackColor = true;
-            this.Remove.Click += new System.EventHandler(this.Remove_Click);
             // 
             // Form1
             // 
@@ -218,6 +382,8 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
+            this.AddMeal.ResumeLayout(false);
+            this.AddMeal.PerformLayout();
             this.AddCooks.ResumeLayout(false);
             this.AddCooks.PerformLayout();
             this.Viewer.ResumeLayout(false);
@@ -245,6 +411,19 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn WeeksMeals;
         private System.Windows.Forms.DataGridViewTextBoxColumn AllMeals;
         private System.Windows.Forms.Button Remove;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button Add;
+        private System.Windows.Forms.RichTextBox NewMealExtras;
+        private System.Windows.Forms.CheckedListBox NewMealFillers;
+        private System.Windows.Forms.CheckedListBox NewMealAllergies;
+        private System.Windows.Forms.CheckedListBox NewMealVegtables;
+        private System.Windows.Forms.TextBox newMealName;
+        private System.Windows.Forms.CheckedListBox NewMealMeats;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 
