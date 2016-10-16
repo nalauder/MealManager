@@ -11,16 +11,16 @@ namespace MealManager
     {
         private ArrayList ingredients;
         public string Name {get;private set;}
-        public bool hasNuts { get; private set; }
-        public bool hasDairy { get; private set; }
-        public bool hasEggs { get; private set; }
+        public bool HasNuts { get; private set; }
+        public bool HasDairy { get; private set; }
+        public bool HasEggs { get; private set; }
         public Meals(string name, ArrayList ingredients, bool nuts, bool dairy, bool eggs)
         {
             this.ingredients = ingredients;
             this.Name = name;
-            hasNuts = nuts;
-            hasDairy = dairy;
-            hasEggs = eggs;
+            HasNuts = nuts;
+            HasDairy = dairy;
+            HasEggs = eggs;
         }
     }
 }

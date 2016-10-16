@@ -24,7 +24,7 @@ namespace MealManager
         private void AddCookButton_Click(object sender, EventArgs e)
         {
             string name = CookName.Text;
-            Cooks selected = AllCooks.FirstOrDefault(x => x.name == name);
+            Cooks selected = AllCooks.FirstOrDefault(x => x.Name == name);
             if (selected != null)
             {
                 return;
@@ -43,13 +43,23 @@ namespace MealManager
                 if (CookAllergies.GetItemChecked(i))
                     allergies.Add(CookAllergies.GetItemText(i));
             }
-            AllCooks.Add(new Cooks(name, allergies, days));
-            CooksListBox.Items.Add(name);
+            Cooks cook = new Cooks(name, allergies, days);
+            AllCooks.Add(cook);
+            CooksListBox.Items.Add(cook);
         }
 
         private void RemoveButton_Click(object sender, EventArgs e)
         {
-            
+            if(CooksListBox.SelectedItem != null)
+            {
+                AllCooks.Remove((Cooks)CooksListBox.SelectedItem);
+                CooksListBox.Items.Remove(CooksListBox.SelectedItem);
+            }
+            else if(MealsListBox.SelectedItem != null)
+            {
+                AllMeals.Remove((Meals)MealsListBox.SelectedItem);
+                MealsListBox.Items.Remove(MealsListBox.SelectedItem);
+            }
         }
 
         private void AddMealButton_Click(object sender, EventArgs e)
@@ -88,8 +98,9 @@ namespace MealManager
             String[] extras = NewMealExtras.Text.Split(',', ' ');
             for (int i = 0; i < extras.Length - 1; i++)
                 ingredients.Add(extras[i]);
-            AllMeals.Add(new Meals(name, ingredients, nuts, dairy, eggs));
-            MealsListBox.Items.Add(name);
+            Meals meal = new Meals(name, ingredients, nuts, dairy, eggs);
+            AllMeals.Add(meal);
+            MealsListBox.Items.Add(meal);
         }
 
         private void WeeksMealsListBox_Click(object sender, EventArgs e)

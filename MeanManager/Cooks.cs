@@ -10,26 +10,25 @@ namespace MealManager
 {
     class Cooks
     {
-        public string name { get; private set; }
-        public List<string> allergies { get; private set; }
-        public Dictionary<DayOfWeek, bool> available { get;  private set;}
+        public string Name { get; private set; }
+        public List<string> Allergies { get; private set; }
+        public Dictionary<DayOfWeek, bool> Available { get;  private set;}
         public Cooks(string name, List<string> allergies, List<DayOfWeek> daysAvailble)
         {
-            this.name = name;
-            this.allergies = allergies;
-            available = new Dictionary<DayOfWeek, bool>();
-            available.Add(DayOfWeek.Sunday, false);
-            available.Add(DayOfWeek.Monday, false);
-            available.Add(DayOfWeek.Tuesday, false);
-            available.Add(DayOfWeek.Wednesday, false);
-            available.Add(DayOfWeek.Thursday, false);
-            available.Add(DayOfWeek.Friday, false);
-            available.Add(DayOfWeek.Saturday, false);
-            List<DayOfWeek> day = new List<DayOfWeek>(available.Keys);
-            foreach(DayOfWeek entry in day)
+            this.Name = name;
+            this.Allergies = allergies;
+            Available = new Dictionary<DayOfWeek, bool>();
+            Available.Add(DayOfWeek.Sunday, false);
+            Available.Add(DayOfWeek.Monday, false);
+            Available.Add(DayOfWeek.Tuesday, false);
+            Available.Add(DayOfWeek.Wednesday, false);
+            Available.Add(DayOfWeek.Thursday, false);
+            Available.Add(DayOfWeek.Friday, false);
+            Available.Add(DayOfWeek.Saturday, false);
+            foreach(DayOfWeek entry in Available.Keys)
             {
                 if (daysAvailble.Contains(entry))
-                    available[entry] = true;
+                    Available[entry] = true;
             }
         }
     }

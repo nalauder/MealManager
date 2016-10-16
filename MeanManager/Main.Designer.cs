@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.SelectMealTab = new System.Windows.Forms.TabPage();
             this.AddMealTab = new System.Windows.Forms.TabPage();
@@ -54,14 +53,10 @@
             this.WeeksMealsListBox = new System.Windows.Forms.ListBox();
             this.CooksListBox = new System.Windows.Forms.ListBox();
             this.RemoveButton = new System.Windows.Forms.Button();
-            this.cooksBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.mealsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.AddMealTab.SuspendLayout();
             this.AddCooksTab.SuspendLayout();
             this.ViewerTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.cooksBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mealsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -317,24 +312,29 @@
             this.MealsListBox.Name = "MealsListBox";
             this.MealsListBox.Size = new System.Drawing.Size(120, 95);
             this.MealsListBox.TabIndex = 4;
+            this.MealsListBox.ValueMember = "Name";
             this.MealsListBox.Click += new System.EventHandler(this.MealsListBox_Click);
             // 
             // WeeksMealsListBox
             // 
+            this.WeeksMealsListBox.DisplayMember = "Name";
             this.WeeksMealsListBox.FormattingEnabled = true;
             this.WeeksMealsListBox.Location = new System.Drawing.Point(258, 6);
             this.WeeksMealsListBox.Name = "WeeksMealsListBox";
             this.WeeksMealsListBox.Size = new System.Drawing.Size(120, 95);
             this.WeeksMealsListBox.TabIndex = 3;
+            this.WeeksMealsListBox.ValueMember = "Name";
             this.WeeksMealsListBox.Click += new System.EventHandler(this.WeeksMealsListBox_Click);
             // 
             // CooksListBox
             // 
+            this.CooksListBox.DisplayMember = "Name";
             this.CooksListBox.FormattingEnabled = true;
             this.CooksListBox.Location = new System.Drawing.Point(6, 6);
             this.CooksListBox.Name = "CooksListBox";
             this.CooksListBox.Size = new System.Drawing.Size(120, 95);
             this.CooksListBox.TabIndex = 2;
+            this.CooksListBox.ValueMember = "Name";
             this.CooksListBox.Click += new System.EventHandler(this.CooksListBox_Click);
             // 
             // RemoveButton
@@ -346,14 +346,6 @@
             this.RemoveButton.Text = "Remove";
             this.RemoveButton.UseVisualStyleBackColor = true;
             this.RemoveButton.Click += new System.EventHandler(this.RemoveButton_Click);
-            // 
-            // cooksBindingSource
-            // 
-            this.cooksBindingSource.DataSource = typeof(MealManager.Cooks);
-            // 
-            // mealsBindingSource
-            // 
-            this.mealsBindingSource.DataSource = typeof(MealManager.Meals);
             // 
             // Main
             // 
@@ -369,15 +361,11 @@
             this.AddCooksTab.ResumeLayout(false);
             this.AddCooksTab.PerformLayout();
             this.ViewerTab.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.cooksBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.mealsBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.BindingSource cooksBindingSource;
-        private System.Windows.Forms.BindingSource mealsBindingSource;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage SelectMealTab;
         private System.Windows.Forms.TabPage AddMealTab;
