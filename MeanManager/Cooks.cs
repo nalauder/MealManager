@@ -10,10 +10,10 @@ namespace MealManager
 {
     class Cooks
     {
-        private String name;
-        private ArrayList allergies;
-        private Dictionary<DayOfWeek, bool> available;
-        public Cooks(String name, ArrayList allergies, ArrayList daysAvailble)
+        public string name { get; private set; }
+        public List<string> allergies { get; private set; }
+        public Dictionary<DayOfWeek, bool> available { get;  private set;}
+        public Cooks(string name, List<string> allergies, List<DayOfWeek> daysAvailble)
         {
             this.name = name;
             this.allergies = allergies;
@@ -32,12 +32,5 @@ namespace MealManager
                     available[entry] = true;
             }
         }
-
-        public String GetName()
-        {
-            return name;
-        }
-
-
     }
 }

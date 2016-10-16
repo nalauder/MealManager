@@ -8,8 +8,8 @@ namespace MealManager
 {
     class Week
     {
-        private Dictionary<DayOfWeek, ReadyMeal> dailyMeal;
-        private DateTime date;
+        public Dictionary<DayOfWeek, Meals> dailyMeal { get; private set; }
+        public DateTime date { get; private set; }
         public Week(DateTime date)
         {
             this.date = date;
@@ -23,7 +23,7 @@ namespace MealManager
 
         }
 
-        public void AddMeal(ReadyMeal meal, DayOfWeek day)
+        public void AddMeal(Meals meal, DayOfWeek day)
         {
             dailyMeal[day] = meal;
         }

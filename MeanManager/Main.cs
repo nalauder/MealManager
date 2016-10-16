@@ -1,90 +1,119 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MealManager
 {
-    
-
-    class Main
+    public partial class Main : Form
     {
-        ArrayList allCooks;
-        ArrayList allMeals;
-        ArrayList allReadyMeals;
-
+        List<Cooks> AllCooks = new List<Cooks>();
+        List<Meals> AllMeals = new List<Meals>();
+        List<Meals> WeeksMeals = new List<Meals>();
         public Main()
         {
-            allCooks = new ArrayList();
-            allMeals = new ArrayList();
-            allReadyMeals = new ArrayList();
+            InitializeComponent();
         }
 
-        public void AddCook(Cooks cook)
+        private void AddCookButton_Click(object sender, EventArgs e)
         {
-            allCooks.Add(cook);
-        }
-
-        public void AddMeal(Meals meal)
-        {
-            allMeals.Add(meal);
-        }
-
-        public void AddReadyMeal(ReadyMeal meal)
-        {
-            allReadyMeals.Add(meal);
-        }
-
-        public ArrayList GetCook()
-        {
-            return allCooks;
-        }
-
-        public ArrayList GetAllMeals()
-        {
-            return allMeals;
-        }
-
-        public ArrayList GetReadyMeals()
-        {
-            return allReadyMeals;
-        }
-
-        public int GetNoCooks()
-        {
-            return allCooks.Count;
-        }
-
-        public int GetNoMeals()
-        {
-            return allMeals.Count;
-        }
-
-        public bool ContainsCook(String name)
-        {
-            foreach(Cooks cook in allCooks)
+            string name = CookName.Text;
+            Cooks selected = AllCooks.FirstOrDefault(x => x.name == name);
+            if (selected != null)
             {
-                if (cook.GetName().Equals(name))
-                    return true;
+                return;
             }
-            return false;
+            List<DayOfWeek> days = new List<DayOfWeek>();
+            
+            List<string> allergies = new List<string>();
+            for(int i = 0; i < AvailableNights.Items.Count-1; i++)
+            {
+                if(AvailableNights.GetItemChecked(i))
+                    days.Add((DayOfWeek)Enum.Parse(typeof(DayOfWeek), AvailableNights.GetItemText(i)));
+            }
+            
+            for (int i = 0; i < CookAllergies.Items.Count - 1; i++)
+            {
+                if (CookAllergies.GetItemChecked(i))
+                    allergies.Add(CookAllergies.GetItemText(i));
+            }
+            AllCooks.Add(new Cooks(name, allergies, days));
+            CooksListBox.Items.Add(name);
         }
 
-        public void RemoveCook(Cooks remove)
+        private void RemoveButton_Click(object sender, EventArgs e)
         {
-            allCooks.Remove(remove);
+            
         }
 
-        public void RemoveMeal(Meals remove)
+        private void AddMealButton_Click(object sender, EventArgs e)
         {
-            allMeals.Remove(remove);
+            String name = newMealName.Text;
+            ArrayList ingredients = new ArrayList();
+            bool nuts = false;
+            bool dairy = false;
+            bool eggs = false;
+
+            for (int i = 0; i < NewMealVegtables.Items.Count - 1; i++)
+                if (NewMealVegtables.GetItemChecked(i))
+                    ingredients.Add(NewMealVegtables.GetItemText(i));
+
+            for (int i = 0; i < NewMealMeats.Items.Count - 1; i++)
+                if (NewMealMeats.GetItemChecked(i))
+                    ingredients.Add(NewMealMeats.GetItemText(i));
+
+            for (int i = 0; i < NewMealFillers.Items.Count - 1; i++)
+                if (NewMealFillers.GetItemChecked(i))
+                    ingredients.Add(NewMealFillers.GetItemText(i));
+
+            for (int i = 0; i < NewMealAllergies.Items.Count - 1; i++)
+            {
+                if (NewMealAllergies.GetItemChecked(i))
+                {
+                    if (NewMealAllergies.GetItemText(i).Equals("Dairy"))
+                        dairy = true;
+                    else if (NewMealAllergies.GetItemText(i).Equals("Eggs"))
+                        eggs = true;
+                    else if (NewMealAllergies.GetItemText(i).Equals("Nuts"))
+                        nuts = true;
+                }
+            }
+
+            String[] extras = NewMealExtras.Text.Split(',', ' ');
+            for (int i = 0; i < extras.Length - 1; i++)
+                ingredients.Add(extras[i]);
+            AllMeals.Add(new Meals(name, ingredients, nuts, dairy, eggs));
+            MealsListBox.Items.Add(name);
         }
 
-        public void RemoveReadyMeal(ReadyMeal remove)
+        private void WeeksMealsListBox_Click(object sender, EventArgs e)
         {
-            allReadyMeals.Remove(remove);
+            int item = WeeksMealsListBox.SelectedIndex;
+            CooksListBox.ClearSelected();
+            MealsListBox.ClearSelected();
+            WeeksMealsListBox.SetSelected(item, true);
+        }
+
+        private void MealsListBox_Click(object sender, EventArgs e)
+        {
+            int item = MealsListBox.SelectedIndex;
+            CooksListBox.ClearSelected();
+            WeeksMealsListBox.ClearSelected();
+            MealsListBox.SetSelected(item, true);
+        }
+
+        private void CooksListBox_Click(object sender, EventArgs e)
+        {
+            int item = CooksListBox.SelectedIndex;
+            MealsListBox.ClearSelected();
+            WeeksMealsListBox.ClearSelected();
+            CooksListBox.SetSelected(item, true);
         }
     }
 }

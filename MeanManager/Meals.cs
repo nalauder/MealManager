@@ -10,21 +10,17 @@ namespace MealManager
     class Meals
     {
         private ArrayList ingredients;
-        private string name;
-        private bool hasNuts;
-        private bool hasDairy;
-        private bool hasEggs;
+        public string Name {get;private set;}
+        public bool hasNuts { get; private set; }
+        public bool hasDairy { get; private set; }
+        public bool hasEggs { get; private set; }
         public Meals(string name, ArrayList ingredients, bool nuts, bool dairy, bool eggs)
         {
             this.ingredients = ingredients;
-            this.name = name;
+            this.Name = name;
             hasNuts = nuts;
             hasDairy = dairy;
             hasEggs = eggs;
-        }
-        public string GetName()
-        {
-            return name;
         }
     }
 }
