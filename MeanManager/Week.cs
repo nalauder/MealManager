@@ -12,7 +12,7 @@ namespace MealManager
         public DateTime Date { get; private set; }
         public Week(DateTime date)
         {
-            this.Date = date;
+            Date = date;
             DailyMeal.Add(DayOfWeek.Sunday, null);
             DailyMeal.Add(DayOfWeek.Monday, null);
             DailyMeal.Add(DayOfWeek.Tuesday, null);
