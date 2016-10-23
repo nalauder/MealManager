@@ -111,6 +111,7 @@
             this.WeeksMealsListBox.TabIndex = 3;
             this.WeeksMealsListBox.ValueMember = "Name";
             this.WeeksMealsListBox.Click += new System.EventHandler(this.WeeksMealsListBox_Click);
+            this.WeeksMealsListBox.DoubleClick += new System.EventHandler(this.WeeksMealListBox_DoubleClick);
             // 
             // MealsListBox
             // 

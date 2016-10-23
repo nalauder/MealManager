@@ -8,19 +8,24 @@ namespace MealManager
 {
     class Week
     {
-        public Dictionary<DayOfWeek, Meals> DailyMeal { get; set; }
+        public Dictionary<string, Meals> DailyMeal { get; set; }
         public DateTime Date { get; private set; }
         public Week(DateTime date)
         {
             Date = date;
-            DailyMeal.Add(DayOfWeek.Sunday, null);
-            DailyMeal.Add(DayOfWeek.Monday, null);
-            DailyMeal.Add(DayOfWeek.Tuesday, null);
-            DailyMeal.Add(DayOfWeek.Wednesday, null);
-            DailyMeal.Add(DayOfWeek.Thursday, null);
-            DailyMeal.Add(DayOfWeek.Friday, null);
-            DailyMeal.Add(DayOfWeek.Saturday, null);
+            DailyMeal.Add("Sunday", null);
+            DailyMeal.Add("Monday", null);
+            DailyMeal.Add("Tuesday", null);
+            DailyMeal.Add("Wednesday", null);
+            DailyMeal.Add("Thursday", null);
+            DailyMeal.Add("Friday", null);
+            DailyMeal.Add("Saturday", null);
+        }
 
+        public void AddMeal(string day, Meals meal)
+        {
+            if(DailyMeal.Keys.Contains(day))
+                DailyMeal[day] = meal;
         }
     }
 }

@@ -9,15 +9,15 @@ namespace MealManager
 {
     class Meals
     {
-        public List<string> Ingredients { get; private set; }
+        public List<string> Extras { get; private set; }
         public string Name {get;private set;}
         public List<string> Allergies { get; private set; }
         public List<string> Meats { get; private set; }
         public List<string> Vegetables { get; private set; }
         public List<string> Fillers { get; private set; }
-        public Meals(string name, List<string> veges, List<string> meats, List<string> fillers, List<string> ingredients, List<string> allergies)
+        public Meals(string name, List<string> veges, List<string> meats, List<string> fillers, List<string> extras, List<string> allergies)
         {
-            Ingredients = ingredients;
+            Extras = extras;
             Name = name;
             Vegetables = veges;
             Meats = meats;
