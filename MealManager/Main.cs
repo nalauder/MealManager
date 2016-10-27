@@ -128,6 +128,7 @@ namespace MealManager
         {
             ClearMeals();
             NewMealName.Text = meal.Name;
+            MealID.Text = meal.MealID.ToString();
             foreach(string vegeName in meal.Vegetables)
                 if (NewMealVegetables.Items.Contains(vegeName))
                     NewMealVegetables.SetItemChecked(NewMealVegetables.Items.IndexOf(vegeName), true);
@@ -156,6 +157,7 @@ namespace MealManager
         {
             ClearCooks();
             NewCookName.Text = cook.Name;
+            CookID.Text = cook.CookID.ToString();
             foreach (string allergieName in cook.Allergies)
                 if(NewCookAllergies.Items.Contains(allergieName))
                     NewCookAllergies.SetItemChecked(NewCookAllergies.Items.IndexOf(allergieName), true);

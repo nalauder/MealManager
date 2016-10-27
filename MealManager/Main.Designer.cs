@@ -56,6 +56,10 @@
             this.NewMealMeats = new System.Windows.Forms.CheckedListBox();
             this.SelectMealTab = new System.Windows.Forms.TabPage();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.MealID = new System.Windows.Forms.Label();
+            this.MealIDTag = new System.Windows.Forms.Label();
+            this.CookIDTag = new System.Windows.Forms.Label();
+            this.CookID = new System.Windows.Forms.Label();
             this.ViewerTab.SuspendLayout();
             this.AddCookTab.SuspendLayout();
             this.AddMealTab.SuspendLayout();
@@ -154,6 +158,8 @@
             // 
             // AddCookTab
             // 
+            this.AddCookTab.Controls.Add(this.CookIDTag);
+            this.AddCookTab.Controls.Add(this.CookID);
             this.AddCookTab.Controls.Add(this.AddCookButton);
             this.AddCookTab.Controls.Add(this.NewCookAvailableNights);
             this.AddCookTab.Controls.Add(this.NewCookAllergies);
@@ -168,7 +174,7 @@
             // 
             // AddCookButton
             // 
-            this.AddCookButton.Location = new System.Drawing.Point(19, 111);
+            this.AddCookButton.Location = new System.Drawing.Point(15, 123);
             this.AddCookButton.Name = "AddCookButton";
             this.AddCookButton.Size = new System.Drawing.Size(75, 23);
             this.AddCookButton.TabIndex = 3;
@@ -188,7 +194,7 @@
             "Friday",
             "Saturday",
             "Sunday"});
-            this.NewCookAvailableNights.Location = new System.Drawing.Point(145, 25);
+            this.NewCookAvailableNights.Location = new System.Drawing.Point(141, 37);
             this.NewCookAvailableNights.Name = "NewCookAvailableNights";
             this.NewCookAvailableNights.Size = new System.Drawing.Size(120, 109);
             this.NewCookAvailableNights.TabIndex = 2;
@@ -201,20 +207,22 @@
             "Eggs",
             "Dairy",
             "Nuts"});
-            this.NewCookAllergies.Location = new System.Drawing.Point(19, 51);
+            this.NewCookAllergies.Location = new System.Drawing.Point(15, 63);
             this.NewCookAllergies.Name = "NewCookAllergies";
             this.NewCookAllergies.Size = new System.Drawing.Size(120, 49);
             this.NewCookAllergies.TabIndex = 1;
             // 
             // NewCookName
             // 
-            this.NewCookName.Location = new System.Drawing.Point(19, 25);
+            this.NewCookName.Location = new System.Drawing.Point(15, 37);
             this.NewCookName.Name = "NewCookName";
             this.NewCookName.Size = new System.Drawing.Size(120, 20);
             this.NewCookName.TabIndex = 0;
             // 
             // AddMealTab
             // 
+            this.AddMealTab.Controls.Add(this.MealIDTag);
+            this.AddMealTab.Controls.Add(this.MealID);
             this.AddMealTab.Controls.Add(this.AddMealButton);
             this.AddMealTab.Controls.Add(this.label6);
             this.AddMealTab.Controls.Add(this.label5);
@@ -384,6 +392,42 @@
             this.tabControl.Size = new System.Drawing.Size(531, 346);
             this.tabControl.TabIndex = 0;
             // 
+            // MealID
+            // 
+            this.MealID.AutoSize = true;
+            this.MealID.Location = new System.Drawing.Point(326, 22);
+            this.MealID.Name = "MealID";
+            this.MealID.Size = new System.Drawing.Size(19, 13);
+            this.MealID.TabIndex = 14;
+            this.MealID.Text = "00";
+            // 
+            // MealIDTag
+            // 
+            this.MealIDTag.AutoSize = true;
+            this.MealIDTag.Location = new System.Drawing.Point(299, 22);
+            this.MealIDTag.Name = "MealIDTag";
+            this.MealIDTag.Size = new System.Drawing.Size(21, 13);
+            this.MealIDTag.TabIndex = 15;
+            this.MealIDTag.Text = "ID:";
+            // 
+            // CookIDTag
+            // 
+            this.CookIDTag.AutoSize = true;
+            this.CookIDTag.Location = new System.Drawing.Point(215, 12);
+            this.CookIDTag.Name = "CookIDTag";
+            this.CookIDTag.Size = new System.Drawing.Size(21, 13);
+            this.CookIDTag.TabIndex = 17;
+            this.CookIDTag.Text = "ID:";
+            // 
+            // CookID
+            // 
+            this.CookID.AutoSize = true;
+            this.CookID.Location = new System.Drawing.Point(242, 12);
+            this.CookID.Name = "CookID";
+            this.CookID.Size = new System.Drawing.Size(19, 13);
+            this.CookID.TabIndex = 16;
+            this.CookID.Text = "00";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,6 +477,10 @@
         private System.Windows.Forms.CheckedListBox NewMealMeats;
         private System.Windows.Forms.TabPage SelectMealTab;
         private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.Label MealID;
+        private System.Windows.Forms.Label MealIDTag;
+        private System.Windows.Forms.Label CookIDTag;
+        private System.Windows.Forms.Label CookID;
     }
 }
 
