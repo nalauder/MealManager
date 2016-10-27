@@ -34,13 +34,7 @@ namespace MealManager
             Cooks selected = AllCooks.FirstOrDefault(cooks => cooks.Name == name);
             if (selected != null)
                 return;
-            List<string> days = new List<string>();
-            List<string> allergies = new List<string>();
-            foreach (string items in NewCookAvailableNights.CheckedItems)
-                    days.Add(items);
-            foreach (string items in NewCookAllergies.CheckedItems)
-                    allergies.Add(items);
-            Cooks cook = new Cooks(name, allergies, days);
+            Cooks cook = new Cooks(name, NewCookAllergies.CheckedItems.Cast<string>().ToList(), NewCookAvailableNights.CheckedItems.Cast<string>().ToList());
             AllCooks.Add(cook);
             CooksListBox.Items.Add(cook);
             SaveCookSql(cook);
@@ -56,22 +50,10 @@ namespace MealManager
         {
             string name = NewMealName.Text;
             List<string> extras = new List<string>();
-            List<string> meats = new List<string>();
-            List<string> vegetables = new List<string>();
-            List<string> fillers = new List<string>();
-            List<string> allergies = new List<string>();
-            foreach (string items in NewMealVegetables.CheckedItems)
-                vegetables.Add(items);
-            foreach (string items in NewMealMeats.CheckedItems)
-                meats.Add(items);
-            foreach (string items in NewMealFillers.CheckedItems)
-                fillers.Add(items);
-            foreach (string items in NewMealAllergies.CheckedItems)
-                allergies.Add(items);
             string[] extrasSplit = NewMealExtras.Text.Split(',');
             for (int i = 0; i < extrasSplit.Length; i++)
                 extras.Add(extrasSplit[i].Trim());
-            Meals meal = new Meals(name, vegetables, meats, fillers, extras, allergies);
+            Meals meal = new Meals(name, NewMealVegetables.CheckedItems.Cast<string>().ToList(), NewMealMeats.CheckedItems.Cast<string>().ToList(), NewMealFillers.CheckedItems.Cast<string>().ToList(), extras.Cast<string>().ToList(), NewMealAllergies.CheckedItems.Cast<string>().ToList());
             AllMeals.Add(meal);
             MealsListBox.Items.Add(meal);
             SaveMealSql(meal);
@@ -122,6 +104,21 @@ namespace MealManager
             WeeksMealsListBox.ClearSelected();
             CooksListBox.SetSelected(item, true);
             LoadCook((Cooks)CooksListBox.SelectedItem);
+        }
+
+        private void MealsListBox_DoubleClick(object sender, EventArgs e)
+        {
+            tabControl.SelectTab("AddMealTab");
+        }
+
+        private void CooksListBox_DoubleClick(object sender, EventArgs e)
+        {
+            tabControl.SelectTab("AddCookTab");
+        }
+
+        private void WeeksMealListBox_DoubleClick(object sender, EventArgs e)
+        {
+            tabControl.SelectTab("SelectMealTab");
         }
 
         private void LoadMeal(Meals meal)
@@ -203,21 +200,6 @@ namespace MealManager
         private void ClearWeeksMeals()
         {
 
-        }
-
-        private void MealsListBox_DoubleClick(object sender, EventArgs e)
-        {
-            tabControl.SelectTab("AddMealTab");
-        }
-
-        private void CooksListBox_DoubleClick(object sender, EventArgs e)
-        {
-            tabControl.SelectTab("AddCookTab");
-        }
-
-        private void WeeksMealListBox_DoubleClick(object sender, EventArgs e)
-        {
-            tabControl.SelectTab("SelectMealTab");
         }
 
         private void SaveCookSql(Cooks cook)
@@ -353,6 +335,4 @@ namespace MealManager
             con.Close();
         }
     }
-
-
 }
