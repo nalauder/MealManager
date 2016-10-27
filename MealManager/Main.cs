@@ -191,17 +191,8 @@ namespace MealManager
             string available = cook.AvailableString();
             SqlCommand cmd = new SqlCommand("INSERT INTO Cooks (CookName, Allergies, DaysAvailable) VALUES (@CookName, @Allergies, @DaysAvailable) SELECT SCOPE_IDENTITY()", con);
             cmd.Parameters.AddWithValue("@CookName", cook.Name);
-
-            if (allergies == null)
-                cmd.Parameters.AddWithValue("@Allergies", DBNull.Value);
-            else
-                cmd.Parameters.AddWithValue("@Allergies", allergies);
-
-            if (available == null)
-                cmd.Parameters.AddWithValue("@DaysAvailable", DBNull.Value);
-            else
-                cmd.Parameters.AddWithValue("@DaysAvailable", available);
-
+            cmd.Parameters.AddWithValue("@Allergies", cook.AllergiesString() == null ? string.Empty : cook.AllergiesString());
+            cmd.Parameters.AddWithValue("@DaysAvailable", cook.AvailableString() == null ? string.Empty : cook.AvailableString());
             con.Open();
             int cookID = (int)(decimal)cmd.ExecuteScalar();
             cook.CookID = cookID;
