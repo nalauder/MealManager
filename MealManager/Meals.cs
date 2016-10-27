@@ -9,7 +9,7 @@ namespace MealManager
 {
     class Meals
     {
-        public int MealID { get; private set; }
+        public int MealID { get; set; }
         public string Name {get;private set;}
         public List<string> Extras { get; private set; }
         public List<string> Allergies { get; private set; }

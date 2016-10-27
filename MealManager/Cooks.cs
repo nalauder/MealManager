@@ -10,7 +10,7 @@ namespace MealManager
 {
     class Cooks
     {
-        public int CookID { get; private set; }
+        public int CookID { get; set; }
         public string Name { get; private set; }
         public List<string> Allergies { get; private set; }
         public List<string> Available { get;  private set;}
