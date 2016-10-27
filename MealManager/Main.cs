@@ -19,7 +19,7 @@ namespace MealManager
         List<Cooks> AllCooks = new List<Cooks>();
         List<Meals> AllMeals = new List<Meals>();
         List<Meals> WeeksMeals = new List<Meals>();
-        string connectionData = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nalauder\Source\Repos\MealManager\MealManager\Database.mdf;Integrated Security=True";
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nalauder\Source\Repos\MealManager\MealManager\Database.mdf;Integrated Security=True");
         public Main()
         {
             InitializeComponent();
@@ -66,6 +66,7 @@ namespace MealManager
             Meals meal = new Meals(name, vegetables, meats, fillers, extras, allergies);
             AllMeals.Add(meal);
             MealsListBox.Items.Add(meal);
+            SaveMealSql(meal);
             ClearMeals();
         }
 
@@ -207,7 +208,6 @@ namespace MealManager
         {
             string allergies = cook.AllergiesString();
             string available = cook.AvailableString();
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nalauder\Source\Repos\MealManager\MealManager\Database.mdf;Integrated Security=True");
             SqlCommand cmd = new SqlCommand("INSERT INTO Cooks (CookName, Allergies, DaysAvailable) VALUES (@CookName, @Allergies, @DaysAvailable)", con);
             cmd.Parameters.AddWithValue("@CookName", cook.Name);
 
@@ -220,6 +220,45 @@ namespace MealManager
                 cmd.Parameters.AddWithValue("@DaysAvailable", DBNull.Value);
             else
                 cmd.Parameters.AddWithValue("@DaysAvailable", available);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+
+        private void SaveMealSql(Meals meal)
+        {
+            string vegetables = meal.VegetablesString();
+            string meats = meal.MeatsString();
+            string fillers = meal.FillersString();
+            string extras = meal.ExtrasString();
+            string allergies = meal.AllergiesString();
+            SqlCommand cmd = new SqlCommand("INSERT INTO Meals (MealName, Vegetables, Meats, Fillers, Extras, Allergies) VALUES (@MealName, @Vegetables, @Meats, @Fillers, @Extras, @Allergies)", con);
+            cmd.Parameters.AddWithValue("@MealName", meal.Name);
+
+            if (vegetables == null)
+                cmd.Parameters.AddWithValue("@Vegetables", DBNull.Value);
+            else
+                cmd.Parameters.AddWithValue("@Vegetables", vegetables);
+
+            if (meats == null)
+                cmd.Parameters.AddWithValue("@Meats", DBNull.Value);
+            else
+                cmd.Parameters.AddWithValue("@Meats", meats);
+
+            if (fillers == null)
+                cmd.Parameters.AddWithValue("@Fillers", DBNull.Value);
+            else
+                cmd.Parameters.AddWithValue("@Fillers", fillers);
+
+            if (extras == null)
+                cmd.Parameters.AddWithValue("@Extras", DBNull.Value);
+            else
+                cmd.Parameters.AddWithValue("@Extras", extras);
+
+            if (allergies == null)
+                cmd.Parameters.AddWithValue("@Allergies", DBNull.Value);
+            else
+                cmd.Parameters.AddWithValue("@Allergies", allergies);
 
             con.Open();
             cmd.ExecuteNonQuery();
