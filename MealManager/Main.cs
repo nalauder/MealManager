@@ -222,7 +222,7 @@ namespace MealManager
             while(reader.Read())
             {
                 int id = (int)reader["MealID"];
-                string name = (string)reader["MealName"];
+                string name = ((string)reader["MealName"]).Trim();
                 string[] vegetables = reader["Vegetables"].ToString().Split(',');
                 string[] meats = reader["Meats"].ToString().Split(',');
                 string[] fillers = reader["Fillers"].ToString().Split(',');
@@ -243,7 +243,7 @@ namespace MealManager
             while (reader.Read())
             {
                 int id = (int)reader["CookID"];
-                string name = (string)reader["CookName"];
+                string name = ((string)reader["CookName"]).Trim();
                 string[] allergies = (reader["Allergies"]).ToString().Split(',');
                 string[] daysAvailable = ((string)reader["DaysAvailable"]).Split(',');
                 Cooks cook = new Cooks(name, allergies, daysAvailable);
