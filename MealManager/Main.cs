@@ -148,9 +148,11 @@ namespace MealManager
             ClearCooks();
             NewCookName.Text = cook.Name;
             foreach (string allergieName in cook.Allergies)
-                NewCookAllergies.SetItemChecked(NewCookAllergies.Items.IndexOf(allergieName), true);
+                if(NewCookAllergies.Items.Contains(allergieName))
+                    NewCookAllergies.SetItemChecked(NewCookAllergies.Items.IndexOf(allergieName), true);
             foreach (string nightsName in cook.Available)
-                NewCookAvailableNights.SetItemChecked(NewCookAvailableNights.Items.IndexOf(nightsName), true);
+                if (NewCookAvailableNights.Items.Contains(nightsName))
+                    NewCookAvailableNights.SetItemChecked(NewCookAvailableNights.Items.IndexOf(nightsName), true);
         }
 
         private void LoadWeeksMeals(Week week)
@@ -312,7 +314,28 @@ namespace MealManager
    
         private void LoadCookSql()
         {
-
+            List<string> allergy;
+            List<string> available;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Cooks", con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                allergy = new List<string>();
+                available = new List<string>();
+                int id = (int)reader["CookID"];
+                string name = (string)reader["CookName"];
+                string[] allergies = (reader["Allergies"]).ToString().Split(',');
+                string[] daysAvailable = ((string)reader["DaysAvailable"]).Split(',');
+                for (int i = 0; i < allergies.Length; i++)
+                    allergy.Add(allergies[i].Trim());
+                for (int i = 0; i < daysAvailable.Length; i++)
+                    available.Add(daysAvailable[i].Trim());
+                Cooks cook = new Cooks(name, allergy, available);
+                AllCooks.Add(cook);
+                CooksListBox.Items.Add(cook);
+            }
+            con.Close();
         }
     }
 
