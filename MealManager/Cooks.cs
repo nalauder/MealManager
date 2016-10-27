@@ -12,17 +12,17 @@ namespace MealManager
     {
         public int CookID { get; set; }
         public string Name { get; private set; }
-        public List<string> Allergies { get; private set; }
-        public List<string> Available { get;  private set;}
-        public Cooks(string name, List<string> allergies, List<string> daysAvailble)
+        public string[] Allergies { get; private set; }
+        public string[] Available { get;  private set;}
+        public Cooks(string name, string[] allergies, string[] daysAvailble)
         {
             Name = name;
             Allergies = allergies;
             Available = daysAvailble;
         }
 
-        public string AllergiesString() => string.Join(", ", Allergies);
+        public string AllergiesString() => string.Join(",", Allergies);
 
-        public string AvailableString() => string.Join(", ", Available);
+        public string AvailableString() => string.Join(",", Available);
     }
 }

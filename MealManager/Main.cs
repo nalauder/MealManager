@@ -16,9 +16,6 @@ namespace MealManager
 {
     public partial class Main : Form
     {
-        List<Cooks> AllCooks = new List<Cooks>();
-        List<Meals> AllMeals = new List<Meals>();
-        List<Meals> WeeksMeals = new List<Meals>();
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nalauder\Source\Repos\MealManager\MealManager\Database.mdf;Integrated Security=True");
 
         public Main()
@@ -31,11 +28,10 @@ namespace MealManager
         private void AddCookButton_Click(object sender, EventArgs e)
         {
             string name = NewCookName.Text;
-            Cooks selected = AllCooks.FirstOrDefault(cooks => cooks.Name == name);
+            Cooks selected = CooksListBox.Items.Cast<Cooks>().FirstOrDefault(cooks => cooks.Name == name);
             if (selected != null)
                 return;
-            Cooks cook = new Cooks(name, NewCookAllergies.CheckedItems.Cast<string>().ToList(), NewCookAvailableNights.CheckedItems.Cast<string>().ToList());
-            AllCooks.Add(cook);
+            Cooks cook = new Cooks(name, NewCookAllergies.CheckedItems.Cast<string>().ToArray<string>(), NewCookAvailableNights.CheckedItems.Cast<string>().ToArray());
             CooksListBox.Items.Add(cook);
             SaveCookSql(cook);
             ClearCooks();
@@ -44,12 +40,10 @@ namespace MealManager
         private void AddMealButton_Click(object sender, EventArgs e)
         {
             string name = NewMealName.Text;
-            List<string> extras = new List<string>();
-            string[] extrasSplit = NewMealExtras.Text.Split(',');
-            for (int i = 0; i < extrasSplit.Length; i++)
-                extras.Add(extrasSplit[i].Trim());
-            Meals meal = new Meals(name, NewMealVegetables.CheckedItems.Cast<string>().ToList(), NewMealMeats.CheckedItems.Cast<string>().ToList(), NewMealFillers.CheckedItems.Cast<string>().ToList(), extras.Cast<string>().ToList(), NewMealAllergies.CheckedItems.Cast<string>().ToList());
-            AllMeals.Add(meal);
+            string[] extras = NewMealExtras.Text.Split(',');
+            for (int i = 0; i < extras.Length; i++)
+                extras[i] = extras[i].Trim();
+            Meals meal = new Meals(name, NewMealVegetables.CheckedItems.Cast<string>().ToArray(), NewMealMeats.CheckedItems.Cast<string>().ToArray(), NewMealFillers.CheckedItems.Cast<string>().ToArray(), extras, NewMealAllergies.CheckedItems.Cast<string>().ToArray());
             MealsListBox.Items.Add(meal);
             SaveMealSql(meal);
             ClearMeals();
@@ -58,15 +52,9 @@ namespace MealManager
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             if(CooksListBox.SelectedItem != null)
-            {
-                AllCooks.Remove((Cooks)CooksListBox.SelectedItem);
                 CooksListBox.Items.Remove(CooksListBox.SelectedItem);
-            }
             else if(MealsListBox.SelectedItem != null)
-            {
-                AllMeals.Remove((Meals)MealsListBox.SelectedItem);
                 MealsListBox.Items.Remove(MealsListBox.SelectedItem);
-            }
         }
 
         private void WeeksMealsListBox_Click(object sender, EventArgs e)
@@ -222,39 +210,13 @@ namespace MealManager
 
         private void SaveMealSql(Meals meal)
         {
-            string vegetables = meal.VegetablesString();
-            string meats = meal.MeatsString();
-            string fillers = meal.FillersString();
-            string extras = meal.ExtrasString();
-            string allergies = meal.AllergiesString();
             SqlCommand cmd = new SqlCommand("INSERT INTO Meals (MealName, Vegetables, Meats, Fillers, Extras, Allergies) VALUES (@MealName, @Vegetables, @Meats, @Fillers, @Extras, @Allergies) SELECT SCOPE_IDENTITY()", con);
             cmd.Parameters.AddWithValue("@MealName", meal.Name);
-
-            if (vegetables == null)
-                cmd.Parameters.AddWithValue("@Vegetables", DBNull.Value);
-            else
-                cmd.Parameters.AddWithValue("@Vegetables", vegetables);
-
-            if (meats == null)
-                cmd.Parameters.AddWithValue("@Meats", DBNull.Value);
-            else
-                cmd.Parameters.AddWithValue("@Meats", meats);
-
-            if (fillers == null)
-                cmd.Parameters.AddWithValue("@Fillers", DBNull.Value);
-            else
-                cmd.Parameters.AddWithValue("@Fillers", fillers);
-
-            if (extras == null)
-                cmd.Parameters.AddWithValue("@Extras", DBNull.Value);
-            else
-                cmd.Parameters.AddWithValue("@Extras", extras);
-
-            if (allergies == null)
-                cmd.Parameters.AddWithValue("@Allergies", DBNull.Value);
-            else
-                cmd.Parameters.AddWithValue("@Allergies", allergies);
-
+            cmd.Parameters.AddWithValue("@Vegetables", meal.VegetablesString() == null ? string.Empty : meal.VegetablesString());
+            cmd.Parameters.AddWithValue("@Meats", meal.MeatsString() == null ? string.Empty : meal.MeatsString());
+            cmd.Parameters.AddWithValue("@Fillers", meal.FillersString() == null ? string.Empty : meal.FillersString());
+            cmd.Parameters.AddWithValue("@Extras", meal.ExtrasString() == null ? string.Empty : meal.ExtrasString());
+            cmd.Parameters.AddWithValue("@Allergies", meal.AllergiesString() == null ? string.Empty : meal.AllergiesString());
             con.Open();
             int mealID = (int)(decimal)cmd.ExecuteScalar();
             meal.MealID = mealID;
@@ -263,21 +225,11 @@ namespace MealManager
 
         private void LoadMealSql()
         {
-            List<string> vegetable;
-            List<string> meat;
-            List<string> filler;
-            List<string> extra;
-            List<string> allergy;
             SqlCommand cmd = new SqlCommand("SELECT * FROM Meals", con);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             while(reader.Read())
             {
-                vegetable = new List<string>();
-                meat = new List<string>();
-                filler = new List<string>();
-                extra = new List<string>();
-                allergy = new List<string>();
                 int id = (int)reader["MealID"];
                 string name = (string)reader["MealName"];
                 string[] vegetables = reader["Vegetables"].ToString().Split(',');
@@ -285,19 +237,8 @@ namespace MealManager
                 string[] fillers = reader["Fillers"].ToString().Split(',');
                 string[] extras = reader["Extras"].ToString().Split(',');
                 string[] allergies = reader["Allergies"].ToString().Split(',');
-                for (int i = 0; i < vegetables.Length; i++)
-                    vegetable.Add(vegetables[i].Trim());
-                for (int i = 0; i < meats.Length; i++)
-                    meat.Add(meats[i].Trim());
-                for (int i = 0; i < fillers.Length; i++)
-                    filler.Add(fillers[i].Trim());
-                for (int i = 0; i < extras.Length; i++)
-                    extra.Add(extras[i].Trim());
-                for (int i = 0; i < allergies.Length; i++)
-                    allergy.Add(allergies[i].Trim());
-                Meals meal = new Meals(name, vegetable, meat, filler, extra, allergy);
+                Meals meal = new Meals(name, vegetables, meats, fillers, extras, allergies);
                 meal.MealID = id;
-                AllMeals.Add(meal);
                 MealsListBox.Items.Add(meal);
             }
             con.Close();
@@ -305,26 +246,17 @@ namespace MealManager
    
         private void LoadCookSql()
         {
-            List<string> allergy;
-            List<string> available;
             SqlCommand cmd = new SqlCommand("SELECT * FROM Cooks", con);
             con.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                allergy = new List<string>();
-                available = new List<string>();
                 int id = (int)reader["CookID"];
                 string name = (string)reader["CookName"];
                 string[] allergies = (reader["Allergies"]).ToString().Split(',');
                 string[] daysAvailable = ((string)reader["DaysAvailable"]).Split(',');
-                for (int i = 0; i < allergies.Length; i++)
-                    allergy.Add(allergies[i].Trim());
-                for (int i = 0; i < daysAvailable.Length; i++)
-                    available.Add(daysAvailable[i].Trim());
-                Cooks cook = new Cooks(name, allergy, available);
+                Cooks cook = new Cooks(name, allergies, daysAvailable);
                 cook.CookID = id;
-                AllCooks.Add(cook);
                 CooksListBox.Items.Add(cook);
             }
             con.Close();
