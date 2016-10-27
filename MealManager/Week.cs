@@ -8,6 +8,7 @@ namespace MealManager
 {
     class Week
     {
+        public int WeekID { get; private set; }
         public Dictionary<string, Meals> DailyMeal { get; set; }
         public DateTime Date { get; private set; }
         public Week(DateTime date)

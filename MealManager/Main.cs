@@ -20,9 +20,12 @@ namespace MealManager
         List<Meals> AllMeals = new List<Meals>();
         List<Meals> WeeksMeals = new List<Meals>();
         SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nalauder\Source\Repos\MealManager\MealManager\Database.mdf;Integrated Security=True");
+
         public Main()
         {
             InitializeComponent();
+            LoadCookSql();
+            LoadMealSql();
         }
 
         private void AddCookButton_Click(object sender, EventArgs e)
@@ -134,7 +137,7 @@ namespace MealManager
                 if (extra.Equals(""))
                     extra = extras;
                 else
-                    extra = string.Concat(extra, ", ", extras);
+                    extra = extra + ", " + extras;
             }
             NewMealExtras.Text = extra;
                 
@@ -223,6 +226,7 @@ namespace MealManager
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
 
         private void SaveMealSql(Meals meal)
@@ -262,9 +266,55 @@ namespace MealManager
 
             con.Open();
             cmd.ExecuteNonQuery();
+            con.Close();
         }
 
+        private void LoadMealSql()
+        {
+            List<string> vegetable;
+            List<string> meat;
+            List<string> filler;
+            List<string> extra;
+            List<string> allergy;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Meals", con);
+            con.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while(reader.Read())
+            {
+                vegetable = new List<string>();
+                meat = new List<string>();
+                filler = new List<string>();
+                extra = new List<string>();
+                allergy = new List<string>();
+                int id = (int)reader["MealID"];
+                string name = (string)reader["MealName"];
+                string[] vegetables = ((string)reader["Vegetables"]).Split(',');
+                string[] meats = ((string)reader["Meats"]).Split(',');
+                string[] fillers = ((string)reader["Fillers"]).Split(',');
+                string[] extras = ((string)reader["Extras"]).Split(',');
+                string[] allergies = ((string)reader["Allergies"]).Split(',');
+                for (int i = 0; i < vegetables.Length; i++)
+                    vegetable.Add(vegetables[i].Trim());
+                for (int i = 0; i < meats.Length; i++)
+                    meat.Add(meats[i].Trim());
+                for (int i = 0; i < fillers.Length; i++)
+                    filler.Add(fillers[i].Trim());
+                for (int i = 0; i < extras.Length; i++)
+                    extra.Add(extras[i].Trim());
+                for (int i = 0; i < allergies.Length; i++)
+                    allergy.Add(allergies[i].Trim());
+                Meals meal = new Meals(name, vegetable, meat, filler, extra, allergy);
+                AllMeals.Add(meal);
+                MealsListBox.Items.Add(meal);
+            }
+            con.Close();
+        }
+   
+        private void LoadCookSql()
+        {
 
+        }
     }
+
 
 }

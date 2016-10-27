@@ -168,7 +168,7 @@
             // 
             // AddCookButton
             // 
-            this.AddCookButton.Location = new System.Drawing.Point(19, 131);
+            this.AddCookButton.Location = new System.Drawing.Point(19, 111);
             this.AddCookButton.Name = "AddCookButton";
             this.AddCookButton.Size = new System.Drawing.Size(75, 23);
             this.AddCookButton.TabIndex = 3;
