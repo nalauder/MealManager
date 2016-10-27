@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.Sql;
+using System.Data.SqlClient;
+
 
 namespace MealManager
 {
@@ -16,6 +19,7 @@ namespace MealManager
         List<Cooks> AllCooks = new List<Cooks>();
         List<Meals> AllMeals = new List<Meals>();
         List<Meals> WeeksMeals = new List<Meals>();
+        string connectionData = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nalauder\Source\Repos\MealManager\MealManager\Database.mdf;Integrated Security=True";
         public Main()
         {
             InitializeComponent();
@@ -36,6 +40,7 @@ namespace MealManager
             Cooks cook = new Cooks(name, allergies, days);
             AllCooks.Add(cook);
             CooksListBox.Items.Add(cook);
+            SaveCookSql(cook);
             ClearCooks();
         }
 
@@ -197,5 +202,30 @@ namespace MealManager
         {
             tabControl.SelectTab("SelectMealTab");
         }
+
+        private void SaveCookSql(Cooks cook)
+        {
+            string allergies = cook.AllergiesString();
+            string available = cook.AvailableString();
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\nalauder\Source\Repos\MealManager\MealManager\Database.mdf;Integrated Security=True");
+            SqlCommand cmd = new SqlCommand("INSERT INTO Cooks (CookName, Allergies, DaysAvailable) VALUES (@CookName, @Allergies, @DaysAvailable)", con);
+            cmd.Parameters.AddWithValue("@CookName", cook.Name);
+
+            if (allergies == null)
+                cmd.Parameters.AddWithValue("@Allergies", DBNull.Value);
+            else
+                cmd.Parameters.AddWithValue("@Allergies", allergies);
+
+            if (available == null)
+                cmd.Parameters.AddWithValue("@DaysAvailable", DBNull.Value);
+            else
+                cmd.Parameters.AddWithValue("@DaysAvailable", available);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+        }
+
+
     }
+
 }
