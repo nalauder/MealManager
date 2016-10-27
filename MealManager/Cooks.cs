@@ -21,25 +21,8 @@ namespace MealManager
             Available = daysAvailble;
         }
 
-        public string AllergiesString()
-        {
-            if (Allergies.Count == 0)
-                return null;
-            string text = Allergies[0];
-            foreach(string name in Allergies)
-                if(name != Allergies[0])
-                    text = text + ", " + name;
-            return text;
-        }
-        public string AvailableString()
-        {
-            if (Available.Count == 0)
-                return null;
-            string text = Available[0];
-            foreach (string name in Available)
-                if (name != Available[0])
-                    text = text + ", " + name;
-            return text;
-        }
+        public string AllergiesString() => string.Join(", ", Allergies);
+
+        public string AvailableString() => string.Join(", ", Available);
     }
 }

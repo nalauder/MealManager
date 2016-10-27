@@ -38,12 +38,7 @@ namespace MealManager
             AllCooks.Add(cook);
             CooksListBox.Items.Add(cook);
             SaveCookSql(cook);
-            SqlCommand cmd = new SqlCommand("SELECT last_insert_rowid()", con);
-            con.Open();
-            int cookID = (int)cmd.ExecuteScalar();
-            cook.CookID = cookID;
             ClearCooks();
-            con.Close();
         }
 
         private void AddMealButton_Click(object sender, EventArgs e)
