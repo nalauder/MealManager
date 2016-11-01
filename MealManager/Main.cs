@@ -191,8 +191,8 @@ namespace MealManager
             string available = cook.AvailableString();
             SqlCommand cmd = new SqlCommand("INSERT INTO Cooks (CookName, Allergies, DaysAvailable) VALUES (@CookName, @Allergies, @DaysAvailable) SELECT SCOPE_IDENTITY()", con);
             cmd.Parameters.AddWithValue("@CookName", cook.Name);
-            cmd.Parameters.AddWithValue("@Allergies", cook.AllergiesString() == null ? string.Empty : cook.AllergiesString());
-            cmd.Parameters.AddWithValue("@DaysAvailable", cook.AvailableString() == null ? string.Empty : cook.AvailableString());
+            cmd.Parameters.AddWithValue("@Allergies", cook.AllergiesString());
+            cmd.Parameters.AddWithValue("@DaysAvailable", cook.AvailableString());
             con.Open();
             int cookID = (int)(decimal)cmd.ExecuteScalar();
             cook.CookID = cookID;
@@ -203,11 +203,11 @@ namespace MealManager
         {
             SqlCommand cmd = new SqlCommand("INSERT INTO Meals (MealName, Vegetables, Meats, Fillers, Extras, Allergies) VALUES (@MealName, @Vegetables, @Meats, @Fillers, @Extras, @Allergies) SELECT SCOPE_IDENTITY()", con);
             cmd.Parameters.AddWithValue("@MealName", meal.Name);
-            cmd.Parameters.AddWithValue("@Vegetables", meal.VegetablesString() == null ? string.Empty : meal.VegetablesString());
-            cmd.Parameters.AddWithValue("@Meats", meal.MeatsString() == null ? string.Empty : meal.MeatsString());
-            cmd.Parameters.AddWithValue("@Fillers", meal.FillersString() == null ? string.Empty : meal.FillersString());
-            cmd.Parameters.AddWithValue("@Extras", meal.ExtrasString() == null ? string.Empty : meal.ExtrasString());
-            cmd.Parameters.AddWithValue("@Allergies", meal.AllergiesString() == null ? string.Empty : meal.AllergiesString());
+            cmd.Parameters.AddWithValue("@Vegetables", meal.VegetablesString());
+            cmd.Parameters.AddWithValue("@Meats", meal.MeatsString());
+            cmd.Parameters.AddWithValue("@Fillers", meal.FillersString());
+            cmd.Parameters.AddWithValue("@Extras", meal.ExtrasString());
+            cmd.Parameters.AddWithValue("@Allergies", meal.AllergiesString());
             con.Open();
             int mealID = (int)(decimal)cmd.ExecuteScalar();
             meal.MealID = mealID;
