@@ -252,5 +252,13 @@ namespace MealManager
             }
             con.Close();
         }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'CooksDS.Cooks' table. You can move, or remove it, as needed.
+            this.CooksTableAdapter.Fill(this.CooksDS.Cooks);
+
+            this.reportViewer.RefreshReport();
+        }
     }
 }

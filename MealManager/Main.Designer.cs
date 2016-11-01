@@ -1,4 +1,6 @@
-﻿namespace MealManager
+﻿using System;
+
+namespace MealManager
 {
     partial class Main
     {
@@ -28,6 +30,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            this.CooksBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.CooksDS = new MealManager.CooksDS();
             this.ViewerTab = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -37,11 +43,15 @@
             this.CooksListBox = new System.Windows.Forms.ListBox();
             this.RemoveButton = new System.Windows.Forms.Button();
             this.AddCookTab = new System.Windows.Forms.TabPage();
+            this.CookIDTag = new System.Windows.Forms.Label();
+            this.CookID = new System.Windows.Forms.Label();
             this.AddCookButton = new System.Windows.Forms.Button();
             this.NewCookAvailableNights = new System.Windows.Forms.CheckedListBox();
             this.NewCookAllergies = new System.Windows.Forms.CheckedListBox();
             this.NewCookName = new System.Windows.Forms.TextBox();
             this.AddMealTab = new System.Windows.Forms.TabPage();
+            this.MealIDTag = new System.Windows.Forms.Label();
+            this.MealID = new System.Windows.Forms.Label();
             this.AddMealButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -56,15 +66,27 @@
             this.NewMealMeats = new System.Windows.Forms.CheckedListBox();
             this.SelectMealTab = new System.Windows.Forms.TabPage();
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.MealID = new System.Windows.Forms.Label();
-            this.MealIDTag = new System.Windows.Forms.Label();
-            this.CookIDTag = new System.Windows.Forms.Label();
-            this.CookID = new System.Windows.Forms.Label();
+            this.GenerateReport = new System.Windows.Forms.TabPage();
+            this.CooksTableAdapter = new MealManager.CooksDSTableAdapters.CooksTableAdapter();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            ((System.ComponentModel.ISupportInitialize)(this.CooksBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CooksDS)).BeginInit();
             this.ViewerTab.SuspendLayout();
             this.AddCookTab.SuspendLayout();
             this.AddMealTab.SuspendLayout();
             this.tabControl.SuspendLayout();
+            this.GenerateReport.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // CooksBindingSource
+            // 
+            this.CooksBindingSource.DataMember = "Cooks";
+            this.CooksBindingSource.DataSource = this.CooksDS;
+            // 
+            // CooksDS
+            // 
+            this.CooksDS.DataSetName = "CooksDS";
+            this.CooksDS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // ViewerTab
             // 
@@ -172,6 +194,24 @@
             this.AddCookTab.Text = "Add Cooks";
             this.AddCookTab.UseVisualStyleBackColor = true;
             // 
+            // CookIDTag
+            // 
+            this.CookIDTag.AutoSize = true;
+            this.CookIDTag.Location = new System.Drawing.Point(215, 12);
+            this.CookIDTag.Name = "CookIDTag";
+            this.CookIDTag.Size = new System.Drawing.Size(21, 13);
+            this.CookIDTag.TabIndex = 17;
+            this.CookIDTag.Text = "ID:";
+            // 
+            // CookID
+            // 
+            this.CookID.AutoSize = true;
+            this.CookID.Location = new System.Drawing.Point(242, 12);
+            this.CookID.Name = "CookID";
+            this.CookID.Size = new System.Drawing.Size(19, 13);
+            this.CookID.TabIndex = 16;
+            this.CookID.Text = "00";
+            // 
             // AddCookButton
             // 
             this.AddCookButton.Location = new System.Drawing.Point(15, 123);
@@ -242,6 +282,24 @@
             this.AddMealTab.TabIndex = 6;
             this.AddMealTab.Text = "Add Meal";
             this.AddMealTab.UseVisualStyleBackColor = true;
+            // 
+            // MealIDTag
+            // 
+            this.MealIDTag.AutoSize = true;
+            this.MealIDTag.Location = new System.Drawing.Point(299, 22);
+            this.MealIDTag.Name = "MealIDTag";
+            this.MealIDTag.Size = new System.Drawing.Size(21, 13);
+            this.MealIDTag.TabIndex = 15;
+            this.MealIDTag.Text = "ID:";
+            // 
+            // MealID
+            // 
+            this.MealID.AutoSize = true;
+            this.MealID.Location = new System.Drawing.Point(326, 22);
+            this.MealID.Name = "MealID";
+            this.MealID.Size = new System.Drawing.Size(19, 13);
+            this.MealID.TabIndex = 14;
+            this.MealID.Text = "00";
             // 
             // AddMealButton
             // 
@@ -379,6 +437,7 @@
             this.SelectMealTab.TabIndex = 0;
             this.SelectMealTab.Text = "Select Meal";
             this.SelectMealTab.UseVisualStyleBackColor = true;
+            this.SelectMealTab.Click += new System.EventHandler(this.SelectMealTab_Click);
             // 
             // tabControl
             // 
@@ -386,47 +445,39 @@
             this.tabControl.Controls.Add(this.AddMealTab);
             this.tabControl.Controls.Add(this.AddCookTab);
             this.tabControl.Controls.Add(this.ViewerTab);
+            this.tabControl.Controls.Add(this.GenerateReport);
             this.tabControl.Location = new System.Drawing.Point(2, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(531, 346);
             this.tabControl.TabIndex = 0;
             // 
-            // MealID
+            // GenerateReport
             // 
-            this.MealID.AutoSize = true;
-            this.MealID.Location = new System.Drawing.Point(326, 22);
-            this.MealID.Name = "MealID";
-            this.MealID.Size = new System.Drawing.Size(19, 13);
-            this.MealID.TabIndex = 14;
-            this.MealID.Text = "00";
+            this.GenerateReport.Controls.Add(this.reportViewer);
+            this.GenerateReport.Location = new System.Drawing.Point(4, 22);
+            this.GenerateReport.Name = "GenerateReport";
+            this.GenerateReport.Padding = new System.Windows.Forms.Padding(3);
+            this.GenerateReport.Size = new System.Drawing.Size(523, 320);
+            this.GenerateReport.TabIndex = 7;
+            this.GenerateReport.Text = "GenerateReport";
+            this.GenerateReport.UseVisualStyleBackColor = true;
             // 
-            // MealIDTag
+            // CooksTableAdapter
             // 
-            this.MealIDTag.AutoSize = true;
-            this.MealIDTag.Location = new System.Drawing.Point(299, 22);
-            this.MealIDTag.Name = "MealIDTag";
-            this.MealIDTag.Size = new System.Drawing.Size(21, 13);
-            this.MealIDTag.TabIndex = 15;
-            this.MealIDTag.Text = "ID:";
+            this.CooksTableAdapter.ClearBeforeFill = true;
             // 
-            // CookIDTag
+            // reportViewer
             // 
-            this.CookIDTag.AutoSize = true;
-            this.CookIDTag.Location = new System.Drawing.Point(215, 12);
-            this.CookIDTag.Name = "CookIDTag";
-            this.CookIDTag.Size = new System.Drawing.Size(21, 13);
-            this.CookIDTag.TabIndex = 17;
-            this.CookIDTag.Text = "ID:";
-            // 
-            // CookID
-            // 
-            this.CookID.AutoSize = true;
-            this.CookID.Location = new System.Drawing.Point(242, 12);
-            this.CookID.Name = "CookID";
-            this.CookID.Size = new System.Drawing.Size(19, 13);
-            this.CookID.TabIndex = 16;
-            this.CookID.Text = "00";
+            this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            reportDataSource1.Name = "CooksDataSet";
+            reportDataSource1.Value = this.CooksBindingSource;
+            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "MealManager.CooksReport.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(3, 3);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.Size = new System.Drawing.Size(517, 314);
+            this.reportViewer.TabIndex = 1;
             // 
             // Main
             // 
@@ -436,6 +487,9 @@
             this.Controls.Add(this.tabControl);
             this.Name = "Main";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Main_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.CooksBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CooksDS)).EndInit();
             this.ViewerTab.ResumeLayout(false);
             this.ViewerTab.PerformLayout();
             this.AddCookTab.ResumeLayout(false);
@@ -443,8 +497,14 @@
             this.AddMealTab.ResumeLayout(false);
             this.AddMealTab.PerformLayout();
             this.tabControl.ResumeLayout(false);
+            this.GenerateReport.ResumeLayout(false);
             this.ResumeLayout(false);
 
+        }
+
+        private void SelectMealTab_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion
@@ -481,6 +541,11 @@
         private System.Windows.Forms.Label MealIDTag;
         private System.Windows.Forms.Label CookIDTag;
         private System.Windows.Forms.Label CookID;
+        private CooksDS CooksDS;
+        private System.Windows.Forms.BindingSource CooksBindingSource;
+        private CooksDSTableAdapters.CooksTableAdapter CooksTableAdapter;
+        private System.Windows.Forms.TabPage GenerateReport;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
     }
 }
 
