@@ -23,6 +23,14 @@ namespace MealManager
             InitializeComponent();
             LoadCookSql();
             LoadMealSql();
+            foreach(Meals meal in MealsListBox.Items)
+                NewWeekMeals.Items.Add(meal);
+            foreach (Cooks cook in CooksListBox.Items)
+                NewWeekCooks.Items.Add(cook);
+            NewWeekCooks.Enabled = false;
+            NewWeekMeals.Enabled = false;
+            DayOfWeek selected = NewWeekDateTimepicker.Value.DayOfWeek;
+            NewWeekDateTimepicker.Value = NewWeekDateTimepicker.Value.AddDays(DayOfWeek.Monday - selected);
         }
 
         private void AddCookButton_Click(object sender, EventArgs e)
@@ -259,6 +267,53 @@ namespace MealManager
             this.CooksTableAdapter.Fill(this.CooksDS.Cooks);
 
             this.reportViewer.RefreshReport();
+        }
+
+        private void SelectMealDays_Clicked(object sender, EventArgs e)
+        {
+            NewWeekCooks.Enabled = true;
+            NewWeekMeals.Enabled = true;
+        }
+
+        private void DateTime_Changed(object sender, EventArgs e)
+        {
+            DayOfWeek selected = NewWeekDateTimepicker.Value.DayOfWeek;
+            NewWeekDateTimepicker.Value = NewWeekDateTimepicker.Value.AddDays(DayOfWeek.Monday - selected);
+        }
+
+        private void NewWeekButton_Click(object sender, EventArgs e)
+        {
+            Week newWeek;
+            if (WeeksMealsListBox.Items.Count > 0)
+            {
+                foreach (Week week in WeeksMealsListBox.Items)
+                {
+                    if (NewWeekDateTimepicker.Value.ToShortDateString().Equals(week.Name))
+                    {
+                        week.AddMeal((string)NewWeekDays.SelectedItem, (Meals)NewWeekMeals.SelectedItem, (Cooks)NewWeekCooks.SelectedItem);
+                        return;
+                    }
+                }
+            }
+
+            newWeek = new Week(NewWeekDateTimepicker.Value.ToShortDateString());
+            newWeek.AddMeal((string)NewWeekDays.SelectedItem, (Meals)NewWeekMeals.SelectedItem, (Cooks)NewWeekCooks.SelectedItem);
+            WeeksMealsListBox.Items.Add(newWeek);
+
+        }
+
+        private void NewWeekDays_Changed(object sender, EventArgs e)
+        {
+                foreach (Week week in WeeksMealsListBox.Items)
+                {
+                    if (NewWeekDateTimepicker.Value.ToShortDateString().Equals(week.Name) && week.DailyMeal.ContainsKey((string)NewWeekDays.SelectedItem))
+                    {
+                        NewWeekMeals.SelectedItem = week.DailyMeal[(string)NewWeekDays.SelectedItem].Item1;
+                        NewWeekCooks.SelectedItem = week.DailyMeal[(string)NewWeekDays.SelectedItem].Item2;
+                        return;
+                    }
+                }
+            
         }
     }
 }

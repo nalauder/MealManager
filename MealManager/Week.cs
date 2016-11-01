@@ -8,25 +8,18 @@ namespace MealManager
 {
     class Week
     {
-        public int WeekID { get; private set; }
-        public Dictionary<string, Meals> DailyMeal { get; set; }
-        public DateTime Date { get; private set; }
-        public Week(DateTime date)
+        public int WeekID { get; set; }
+        public Dictionary<string, Tuple<Meals, Cooks>> DailyMeal { get; private set; }
+        public string Name { get; private set; }
+        public Week(string date)
         {
-            Date = date;
-            DailyMeal.Add("Sunday", null);
-            DailyMeal.Add("Monday", null);
-            DailyMeal.Add("Tuesday", null);
-            DailyMeal.Add("Wednesday", null);
-            DailyMeal.Add("Thursday", null);
-            DailyMeal.Add("Friday", null);
-            DailyMeal.Add("Saturday", null);
+            Name = date;
+            DailyMeal = new Dictionary<string, Tuple<Meals, Cooks>>();
         }
 
-        public void AddMeal(string day, Meals meal)
+        public void AddMeal(string day, Meals meal, Cooks cook)
         {
-            if(DailyMeal.Keys.Contains(day))
-                DailyMeal[day] = meal;
+            DailyMeal.Add(day, new Tuple<Meals, Cooks>(meal, cook));
         }
     }
 }

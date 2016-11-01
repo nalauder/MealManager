@@ -31,7 +31,7 @@ namespace MealManager
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource3 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.CooksBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.CooksDS = new MealManager.CooksDS();
             this.ViewerTab = new System.Windows.Forms.TabPage();
@@ -65,15 +65,21 @@ namespace MealManager
             this.NewMealVegetables = new System.Windows.Forms.CheckedListBox();
             this.NewMealMeats = new System.Windows.Forms.CheckedListBox();
             this.SelectMealTab = new System.Windows.Forms.TabPage();
+            this.NewWeekDateTimepicker = new System.Windows.Forms.DateTimePicker();
+            this.NewWeekButton = new System.Windows.Forms.Button();
+            this.NewWeekCooks = new System.Windows.Forms.ComboBox();
+            this.NewWeekMeals = new System.Windows.Forms.ComboBox();
+            this.NewWeekDays = new System.Windows.Forms.ListBox();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.GenerateReport = new System.Windows.Forms.TabPage();
-            this.CooksTableAdapter = new MealManager.CooksDSTableAdapters.CooksTableAdapter();
             this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.CooksTableAdapter = new MealManager.CooksDSTableAdapters.CooksTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.CooksBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CooksDS)).BeginInit();
             this.ViewerTab.SuspendLayout();
             this.AddCookTab.SuspendLayout();
             this.AddMealTab.SuspendLayout();
+            this.SelectMealTab.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.GenerateReport.SuspendLayout();
             this.SuspendLayout();
@@ -430,6 +436,11 @@ namespace MealManager
             // 
             // SelectMealTab
             // 
+            this.SelectMealTab.Controls.Add(this.NewWeekDateTimepicker);
+            this.SelectMealTab.Controls.Add(this.NewWeekButton);
+            this.SelectMealTab.Controls.Add(this.NewWeekCooks);
+            this.SelectMealTab.Controls.Add(this.NewWeekMeals);
+            this.SelectMealTab.Controls.Add(this.NewWeekDays);
             this.SelectMealTab.Location = new System.Drawing.Point(4, 22);
             this.SelectMealTab.Name = "SelectMealTab";
             this.SelectMealTab.Padding = new System.Windows.Forms.Padding(3);
@@ -437,7 +448,62 @@ namespace MealManager
             this.SelectMealTab.TabIndex = 0;
             this.SelectMealTab.Text = "Select Meal";
             this.SelectMealTab.UseVisualStyleBackColor = true;
-            this.SelectMealTab.Click += new System.EventHandler(this.SelectMealTab_Click);
+            // 
+            // NewWeekDateTimepicker
+            // 
+            this.NewWeekDateTimepicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.NewWeekDateTimepicker.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.NewWeekDateTimepicker.Location = new System.Drawing.Point(6, 6);
+            this.NewWeekDateTimepicker.Name = "NewWeekDateTimepicker";
+            this.NewWeekDateTimepicker.Size = new System.Drawing.Size(120, 20);
+            this.NewWeekDateTimepicker.TabIndex = 4;
+            this.NewWeekDateTimepicker.ValueChanged += new System.EventHandler(this.DateTime_Changed);
+            // 
+            // NewWeekButton
+            // 
+            this.NewWeekButton.Location = new System.Drawing.Point(132, 109);
+            this.NewWeekButton.Name = "NewWeekButton";
+            this.NewWeekButton.Size = new System.Drawing.Size(75, 23);
+            this.NewWeekButton.TabIndex = 3;
+            this.NewWeekButton.Text = "Add";
+            this.NewWeekButton.UseVisualStyleBackColor = true;
+            this.NewWeekButton.Click += new System.EventHandler(this.NewWeekButton_Click);
+            // 
+            // NewWeekCooks
+            // 
+            this.NewWeekCooks.DisplayMember = "Name";
+            this.NewWeekCooks.FormattingEnabled = true;
+            this.NewWeekCooks.Location = new System.Drawing.Point(132, 64);
+            this.NewWeekCooks.Name = "NewWeekCooks";
+            this.NewWeekCooks.Size = new System.Drawing.Size(121, 21);
+            this.NewWeekCooks.TabIndex = 2;
+            // 
+            // NewWeekMeals
+            // 
+            this.NewWeekMeals.DisplayMember = "Name";
+            this.NewWeekMeals.FormattingEnabled = true;
+            this.NewWeekMeals.Location = new System.Drawing.Point(132, 37);
+            this.NewWeekMeals.Name = "NewWeekMeals";
+            this.NewWeekMeals.Size = new System.Drawing.Size(121, 21);
+            this.NewWeekMeals.TabIndex = 1;
+            // 
+            // NewWeekDays
+            // 
+            this.NewWeekDays.FormattingEnabled = true;
+            this.NewWeekDays.Items.AddRange(new object[] {
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"});
+            this.NewWeekDays.Location = new System.Drawing.Point(6, 37);
+            this.NewWeekDays.Name = "NewWeekDays";
+            this.NewWeekDays.Size = new System.Drawing.Size(120, 95);
+            this.NewWeekDays.TabIndex = 0;
+            this.NewWeekDays.Click += new System.EventHandler(this.SelectMealDays_Clicked);
+            this.NewWeekDays.SelectedIndexChanged += new System.EventHandler(this.NewWeekDays_Changed);
             // 
             // tabControl
             // 
@@ -463,21 +529,21 @@ namespace MealManager
             this.GenerateReport.Text = "GenerateReport";
             this.GenerateReport.UseVisualStyleBackColor = true;
             // 
-            // CooksTableAdapter
-            // 
-            this.CooksTableAdapter.ClearBeforeFill = true;
-            // 
             // reportViewer
             // 
             this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "CooksDataSet";
-            reportDataSource1.Value = this.CooksBindingSource;
-            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
+            reportDataSource3.Name = "CooksDataSet";
+            reportDataSource3.Value = this.CooksBindingSource;
+            this.reportViewer.LocalReport.DataSources.Add(reportDataSource3);
             this.reportViewer.LocalReport.ReportEmbeddedResource = "MealManager.CooksReport.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(3, 3);
             this.reportViewer.Name = "reportViewer";
             this.reportViewer.Size = new System.Drawing.Size(517, 314);
             this.reportViewer.TabIndex = 1;
+            // 
+            // CooksTableAdapter
+            // 
+            this.CooksTableAdapter.ClearBeforeFill = true;
             // 
             // Main
             // 
@@ -496,16 +562,14 @@ namespace MealManager
             this.AddCookTab.PerformLayout();
             this.AddMealTab.ResumeLayout(false);
             this.AddMealTab.PerformLayout();
+            this.SelectMealTab.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.GenerateReport.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
-        private void SelectMealTab_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+
 
         #endregion
 
@@ -546,6 +610,11 @@ namespace MealManager
         private CooksDSTableAdapters.CooksTableAdapter CooksTableAdapter;
         private System.Windows.Forms.TabPage GenerateReport;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
+        private System.Windows.Forms.ListBox NewWeekDays;
+        private System.Windows.Forms.ComboBox NewWeekMeals;
+        private System.Windows.Forms.ComboBox NewWeekCooks;
+        private System.Windows.Forms.DateTimePicker NewWeekDateTimepicker;
+        private System.Windows.Forms.Button NewWeekButton;
     }
 }
 
